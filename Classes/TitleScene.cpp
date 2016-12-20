@@ -1,3 +1,13 @@
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/07
+//!	
+//!	TitleScene.cpp
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "TitleScene.h"
 #include "HelloWorldScene.h"
 
@@ -8,7 +18,7 @@ const float TIME_CONVERTER = 60.0f;
 const int MAX_OPACITY = 200;
 
 //------------------------------------
-//@! ƒNƒ‰ƒXì¬
+//@! ã‚¯ãƒ©ã‚¹ä½œæˆ
 //------------------------------------
 Scene* TitleScene::createScene()
 {
@@ -25,7 +35,7 @@ Scene* TitleScene::createScene()
 	return scene;
 }
 //------------------------------------
-//@! ƒNƒ‰ƒX‚Ì‰Šú‰»
+//@! ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
 //------------------------------------
 bool TitleScene::init()
 {
@@ -34,62 +44,62 @@ bool TitleScene::init()
 		return false;
 	}
 		
-	//‰æ–ÊƒTƒCƒY
+	//ç”»é¢ã‚µã‚¤ã‚º
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 	_time = 0;
 	_opacity = 0;
 	_startOpacity = 0;
 
-	//ƒ^ƒbƒ`‚µ‚½‚çˆÚ“®
+	//ã‚¿ãƒƒãƒã—ãŸã‚‰ç§»å‹•
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(TitleScene::onTouchBegan, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//”wŒi
+	//èƒŒæ™¯
 	Sprite* bg = Sprite::create("bg.png");
 	bg->setAnchorPoint(Vec2::ZERO);
 	bg->setPosition(Vec2(0, -visibleSize.height));
 	this->addChild(bg);
-	//”wŒi‚ÌƒAƒNƒVƒ‡ƒ“
+	//èƒŒæ™¯ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 	MoveTo* bg_move = MoveTo::create(BG_SPEED, Vec2::ZERO);
 	bg->runAction(bg_move);
 
-	//ƒQ[ƒ€ƒ^ƒCƒgƒ‹
+	//ã‚²ãƒ¼ãƒ ã‚¿ã‚¤ãƒˆãƒ«
 	_titleName = Sprite::create("titleName.png");
 	_titleName->setPosition(visibleSize.width / 2, visibleSize.height / 2 + 50);
 	_titleName->setOpacity(_opacity);
 	this->addChild(_titleName);
 
-	//ƒQ[ƒ€ƒXƒ^[ƒg
+	//ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ
 	_start = Sprite::create("gameStart.png");
 	_start->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 150);
 	_start->setOpacity(_startOpacity);
 	this->addChild(_start);
 
-	//ƒp[ƒeƒBƒNƒ‹ƒGƒtƒFƒNƒg
+	//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 	CCParticleSystemQuad* par = CCParticleSystemQuad::create("title_par.plist");
 	par->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(par);
 
-	//XV
+	//æ›´æ–°
 	this->scheduleUpdate();
 
 	return true;
 }
 //------------------------------------
-//@! XV
-//@! ŠÔ
+//@! æ›´æ–°
+//@! æ™‚é–“
 //------------------------------------
 void TitleScene::update(float dt)
 {
-	//ŠÔƒJƒEƒ“ƒg
+	//æ™‚é–“ã‚«ã‚¦ãƒ³ãƒˆ
 	_time++;
 
 	if (_time >= (2.0f * TIME_CONVERTER))
 	{
-		//ƒ^ƒCƒgƒ‹‚Ì“§–¾
+		//ã‚¿ã‚¤ãƒˆãƒ«ã®é€æ˜
 		if (_opacity <= MAX_OPACITY)_opacity++;
 		_titleName->setOpacity(_opacity);
 	}
@@ -103,13 +113,13 @@ void TitleScene::update(float dt)
 }
 
 //------------------------------------
-//@! ƒNƒŠƒbƒN‚µ‚½‚çˆÚ“®
-//@! ƒ^ƒbƒ`AƒCƒxƒ“ƒg
+//@! ã‚¯ãƒªãƒƒã‚¯ã—ãŸã‚‰ç§»å‹•
+//@! ã‚¿ãƒƒãƒã€ã‚¤ãƒ™ãƒ³ãƒˆ
 //------------------------------------
 bool TitleScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
 
-	//ˆÚ“®æƒV[ƒ“‚Ìì¬
+	//ç§»å‹•å…ˆã‚·ãƒ¼ãƒ³ã®ä½œæˆ
 	auto scene = HelloWorld::createScene();
 	auto transition = TransitionFade::create(1.0f, scene);
 	Director::getInstance()->replaceScene(transition);

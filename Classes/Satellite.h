@@ -1,19 +1,30 @@
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/05
+//!	
+//!	Satellite.h
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
+//------------------------------
 #include "cocos2d.h"
 #include "Player.h"
-
+//-------------------------------------------------
 class Satellite : public cocos2d::Camera
 {
 private:
-	cocos2d::Vec2 _touchPrev;
-	Crystal* _pCrystal;
+	cocos2d::Vec2 _touchPrev;		//å‰ã®ã‚¿ãƒƒãƒåº§æ¨™
+	Crystal* _pCrystal;				//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆï¼ˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‰
 
 public:
-	// “§‹“Š‰e‚ÅƒJƒƒ‰‚ğì¬
+	// é€è¦–æŠ•å½±ã§ã‚«ãƒ¡ãƒ©ã‚’ä½œæˆ
 	static Satellite* createPerspective(Crystal* crystal, float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
-	// “§‹“Š‰e‚ÅƒJƒƒ‰‚ğ‰Šú‰»
+	// é€è¦–æŠ•å½±ã§ã‚«ãƒ¡ãƒ©ã‚’åˆæœŸåŒ–
 	bool initPerspective(Crystal* crystal, float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 	void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 };
-
+//-------------------------------------------------

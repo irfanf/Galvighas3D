@@ -1,28 +1,32 @@
+﻿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/07
+//!	
+//!	TitleScene.h
+//!
+//! Copyright ©2016 IrGame All Right Reserved
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
 #include "cocos2d.h"
-
+//---------------------------------------------------
 class TitleScene : public cocos2d::Layer
 {
 private:
-	float _time;
-	float _opacity;
-	float _startOpacity;
+	float _time;					//時間
+	float _opacity;					//透明度
+	float _startOpacity;			//透明度の初期値
 
-	cocos2d::Sprite* _titleName;
-	cocos2d::Sprite* _start;
+	cocos2d::Sprite* _titleName;	//タイトル名のスプライト
+	cocos2d::Sprite* _start;		//スタートのスプライト
 public:
 	//---------------------------------------------------------------------
-	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static cocos2d::Scene* createScene();
-
-	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-	virtual bool init();
-
-	// implement the "static create()" method manually
+	virtual bool init()override;
 	CREATE_FUNC(TitleScene);
-
 	void update(float dt)override;
-
+	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 	//---------------------------------------------------------------------
 

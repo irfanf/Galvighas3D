@@ -1,4 +1,4 @@
-//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 //!
 //!	IRFAN FAHMI RAMADHAN
 //!
@@ -6,6 +6,7 @@
 //!	
 //!	LogoScene.cpp
 //!
+//! Copyright Â©2016 IrGame All Right Reserved
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 //---------------------------------------------------------------------
 #include "LogoScene.h"
@@ -15,7 +16,7 @@
 USING_NS_CC;
 //---------------------------------------------------------------------
 //------------------------------------
-//@! ƒNƒ‰ƒXì¬
+//@! ã‚¯ãƒ©ã‚¹ä½œæˆ
 //------------------------------------
 Scene* LogoScene::createScene()
 {
@@ -33,7 +34,7 @@ Scene* LogoScene::createScene()
 }
 
 //------------------------------------
-//@! ƒNƒ‰ƒX‚Ì‰Šú‰»
+//@! ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
 //------------------------------------
 bool LogoScene::init()
 {
@@ -46,32 +47,32 @@ bool LogoScene::init()
 	}
 
 
-	//ƒ^ƒbƒ`‚µ‚½‚çˆÚ“®
+	//ã‚¿ãƒƒãƒã—ãŸã‚‰ç§»å‹•
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(LogoScene::onTouchBegan, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//-----------------------------------------------------------------
-	//ƒƒS‚ðo‚·
+	//ãƒ­ã‚´ã‚’å‡ºã™
 	auto logo_bg = Sprite::create("Logo/Logo_bg.png");
 	logo_bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	logo_bg->setScale(0.0001);
 	this->addChild(logo_bg);
 
-	//ƒƒS–¼‚ðo‚·
+	//ãƒ­ã‚´åã‚’å‡ºã™
 	auto logo_tag = Sprite::create("Logo/Logo_name.png");
 	logo_tag->setPosition(Vec2(-1000.0f, visibleSize.width / 2));
 	this->addChild(logo_tag);
 
-	//ƒƒS‚Ìƒp[ƒeƒBƒNƒ‹
+	//ãƒ­ã‚´ã®ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«
 	CCParticleSystemQuad* logo_particle = CCParticleSystemQuad::create("Logo/particleLogo2.plist");
 	logo_particle->resetSystem();
 	logo_particle->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	logo_particle->setScale(1.5);
 	this->addChild(logo_particle);
 
-	//ƒƒS‚ÌƒAƒNƒVƒ‡ƒ“
+	//ãƒ­ã‚´ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 	DelayTime* delay = DelayTime::create(1.5f);
 	RotateBy* rot = RotateBy::create(1.5f, 360);
 	ScaleTo* scale = ScaleTo::create(1.0f,1);
@@ -79,14 +80,14 @@ bool LogoScene::init()
 	Sequence* seq = Sequence::create(delay, spawn, nullptr);
 	logo_bg->runAction(seq);
 
-	//ƒƒS–¼‚ÌƒAƒNƒVƒ‡ƒ“
+	//ãƒ­ã‚´åã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 	MoveTo* move = MoveTo::create(2.0f, Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	Sequence* seq2 = Sequence::create(delay, move, nullptr);
 	logo_tag->runAction(seq2);
 
 	//-----------------------------------------------------------------
 
-	//ƒV[ƒ“¶¬‚³‚ê‚Ä‚©‚ç4•bŒã‚É"ChangeScene"‚ªŒÄ‚Î‚ê‚é
+	//ã‚·ãƒ¼ãƒ³ç”Ÿæˆã•ã‚Œã¦ã‹ã‚‰4ç§’å¾Œã«"ChangeScene"ãŒå‘¼ã°ã‚Œã‚‹
 	this->scheduleOnce(schedule_selector(LogoScene::changeScene), 5.0f);
 
 	//-----------------------------------------------------------------
@@ -96,24 +97,24 @@ bool LogoScene::init()
 
 
 //------------------------------------
-//@! ŽžŠÔ‚½‚Á‚½‚ç,ƒV[ƒ“ˆÚ“®‚·‚é
-//@! ŽžŠÔ
+//@! æ™‚é–“ãŸã£ãŸã‚‰,ã‚·ãƒ¼ãƒ³ç§»å‹•ã™ã‚‹
+//@! æ™‚é–“
 //------------------------------------
 void LogoScene::changeScene(float dt)
 {
-	//ˆÚ“®æƒV[ƒ“‚Ìì¬
+	//ç§»å‹•å…ˆã‚·ãƒ¼ãƒ³ã®ä½œæˆ
 	auto scene = TitleScene::createScene();
 	scene = TitleScene::createScene();
 	auto transition = TransitionFade::create(3.0f, scene);
 	Director::getInstance()->replaceScene(transition);
 }
 //------------------------------------
-//@! ŽžŠÔ‚½‚Á‚½‚ç,ƒV[ƒ“ˆÚ“®‚·‚é
-//@! ŽžŠÔ
+//@! æ™‚é–“ãŸã£ãŸã‚‰,ã‚·ãƒ¼ãƒ³ç§»å‹•ã™ã‚‹
+//@! æ™‚é–“
 //------------------------------------
 bool LogoScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
-	//ˆÚ“®æƒV[ƒ“‚Ìì¬
+	//ç§»å‹•å…ˆã‚·ãƒ¼ãƒ³ã®ä½œæˆ
 	auto scene = TitleScene::createScene();
 	auto transition = TransitionFade::create(1.0f, scene);
 	Director::getInstance()->replaceScene(transition);
