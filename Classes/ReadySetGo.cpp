@@ -1,10 +1,23 @@
+﻿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/16
+//!	
+//!	ReadySetGo.cpp
+//!
+//! Copyright ©2016 IrGame All Right Reserved
+//!
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "ReadySetGo.h"
-
+//------------------------
 USING_NS_CC;
-
+//------------------------------------
+//@! クラス作成
+//------------------------------------
 ReadySetGo * ReadySetGo::create()
 {
-	//������
+	//メモリ
 	auto rds = new (std::nothrow) ReadySetGo();
 	if (rds && rds->init())
 	{
@@ -17,7 +30,9 @@ ReadySetGo * ReadySetGo::create()
 	return nullptr;
 
 }
-
+//------------------------------------
+//@! 初期化
+//------------------------------------
 bool ReadySetGo::init()
 {
 	if (!Node::init())
@@ -25,13 +40,13 @@ bool ReadySetGo::init()
 		return false;
 	}
 
-	//������
+	//初期化
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	_time = 0;
 	_runningFlag = true;
 
 
-	//�J�E���g�X�v���C�g
+	//カウントスプライト
 	_numSpr = Sprite::create("count/3.png");
 	_numSpr->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(_numSpr);
@@ -41,17 +56,19 @@ bool ReadySetGo::init()
 	return true;
 
 }
-
-bool ReadySetGo::IsRunning() const
-{
-	return _runningFlag;
-}
-
+//------------------------------------
+//@! 更新
+//@! 時間
+//------------------------------------
 void ReadySetGo::update(float dt)
 {
+	//時間をincrementする
 	_time++;
+
+	//カウントしたら
 	if (_runningFlag)
 	{
+		//時間によるテクスチャーを変える
 		switch (_time)
 		{
 		case 60:
@@ -64,8 +81,10 @@ void ReadySetGo::update(float dt)
 			_numSpr->setTexture("count/go.png");
 			break;
 		case 210:
+			//見えないようにする
 			_numSpr->setVisible(false);
 			_runningFlag = false;
+			_numSpr->removeFromParent();
 			this->unscheduleUpdate();
 			break;
 		}

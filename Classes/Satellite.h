@@ -2,7 +2,7 @@
 //!
 //!	IRFAN FAHMI RAMADHAN
 //!
-//!	2016/12/05
+//!	2016/12/09
 //!	
 //!	Satellite.h
 //!

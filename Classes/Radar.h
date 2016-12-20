@@ -1,10 +1,12 @@
-//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 //!
 //!	IRFAN FAHMI RAMADHAN
 //!
 //!	2016/12/19
 //!	
 //!	Radar.h
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
 //!
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
@@ -14,10 +16,10 @@
 class Radar : public cocos2d::Node
 {
 private:
-	cocos2d::Sprite* _pRadarSpr;					//ƒŒ[ƒ_[‚ÌƒXƒvƒ‰ƒCƒg
-	cocos2d::Node* _pEmptyNode;						//‹ó‚Ìƒm[ƒh
-	cocos2d::Sprite* _pMeteorDotSpr;				//“G‚ÌƒhƒbƒgƒXƒvƒ‰ƒCƒg
-	float range;									//ƒŒ[ƒ_[”ÍˆÍ
+	cocos2d::Sprite* _pRadarSpr;					//ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+	cocos2d::Node* _pEmptyNode;						//ç©ºã®ãƒãƒ¼ãƒ‰
+	cocos2d::Sprite* _pMeteorDotSpr;				//æ•µã®ãƒ‰ãƒƒãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+	float range;									//ãƒ¬ãƒ¼ãƒ€ãƒ¼ç¯„å›²
 
 public:
 	static Radar* create();

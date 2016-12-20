@@ -2,7 +2,7 @@
 //!
 //!	IRFAN FAHMI RAMADHAN
 //!
-//!	2016/12/07
+//!	2016/12/16
 //!	
 //!	TitleScene.cpp
 //!
