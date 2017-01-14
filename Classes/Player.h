@@ -9,10 +9,12 @@
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
 
+//----------------------------
 #include "Obj3d.h"
 #include "CollisionNode.h"
-
+//----------------------------
 const int MAX_HP = 100;
+//--------------------------------------------------
 class Crystal : public Obj3D
 {
 public:
@@ -25,6 +27,7 @@ public:
 
 protected:
 	SphereNode* _pCollisionNodeBody;
+
 private:
 	
 	Obj3D* _pCrystal;

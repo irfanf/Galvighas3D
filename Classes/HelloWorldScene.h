@@ -8,6 +8,7 @@
 #include "GameSystem.h"
 #include "Satellite.h"
 
+
 class Obj3D;
 class ReadySetGo;
 
@@ -30,6 +31,7 @@ private:
 	Satellite* _pSatellite;
 	ReadySetGo* _pRDS;
 
+
 	RunningScene _scene;
 
 	float _spawnRate;
@@ -49,11 +51,14 @@ public:
 
 	void update(float dt)override;
 
-	void setMeteor();
+	void createAsteroid(Type type);
 
 	void onCutIn();
 	void onPlay();
 	void gameOver();
+
+	//bool onCollision2Crystal();
+	//bool onCollision2Touch();
 
 };
 

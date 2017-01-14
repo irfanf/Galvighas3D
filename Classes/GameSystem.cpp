@@ -9,11 +9,13 @@
 //! Copyright ©2016 IrGame All Right Reserved
 //!
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//--------------------------------
 #include "GameSystem.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "GameOverScene.h"
 #include "ReadySetGo.h"
+//-------------------------------
 
 USING_NS_CC;
 
@@ -42,8 +44,8 @@ bool GameSystem::init()
 
 	//Billboardの作成
 	_billboard = BillBoard::create(BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	_billboard->setPosition3D(Vec3(0, 2.5, 0));
-	_billboard->setScale(0.007f);
+	_billboard->setPosition3D(Vec3(0, 4.5, 0));
+	_billboard->setScale(0.015f);
 	_billboard->setCameraMask((unsigned short)CameraFlag::USER1);
 	this->addChild(_billboard);
 
@@ -72,6 +74,12 @@ bool GameSystem::init()
 	_scoreText->setCameraMask((unsigned short)CameraFlag::USER1);
 	_scoreText->setPosition(Vec2(-450.f, -50.f));
 	_billboard->addChild(_scoreText);
+
+	_pRadar = Radar::create();
+	_pRadar->setCameraMask((unsigned short)CameraFlag::USER1);
+	_pRadar->setPosition(Vec2(450.f, -75.f));
+	_billboard->addChild(_pRadar);
+
 
 	//スタートの前の4秒待ち
 	DelayTime* dt = DelayTime::create(4);
@@ -125,6 +133,8 @@ void GameSystem::update(float dt)
 		//ハイスコアを書き込む(仮）
 		_pUserDefault->setIntegerForKey("highScore", _highScore);
 	}
+
+	_pRadar->setRadarRot(_playerPos, _cameraPos);
 }
 
 

@@ -12,7 +12,7 @@
 //---------------------
 USING_NS_CC;
 //---------------------
-const float SATELLITE_CAMERA_RANGE = 5.f;
+const float SATELLITE_CAMERA_RANGE = 10.f;
 //------------------------------------
 //@! クラス作成
 //@! Target, FieldOfView, AspectRatio, NearPlane, FarPlane
@@ -57,10 +57,6 @@ bool Satellite::initPerspective(Crystal* crystal, float fieldOfView, float aspec
 	this->lookAt(Vec3(lookAt.x, lookAt.y + 1.f, lookAt.z));
 	//--------------------------------------------------------------------------------------
 
-	auto touchLis = EventListenerTouchOneByOne::create();
-	touchLis->onTouchBegan = CC_CALLBACK_2(Satellite::onTouchBegan, this);
-	touchLis->onTouchMoved = CC_CALLBACK_2(Satellite::onTouchMoved, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchLis, this);
 
 	return true;
 }
@@ -94,9 +90,24 @@ void Satellite::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * unused_eve
 	//回転してもターゲットをずっと見る
 	this->lookAt(Vec3(lookAt.x, lookAt.y + 1.f, lookAt.z));
 
+	//log("%f,%f", getPosition3D().x, getPosition3D().z);
+
 	//前のタッチした画面に戻らないようにする
 	rotate += (_touchPrev - touch->getLocation()).x / 100.f;
 	_touchPrev = touch->getLocation();
+}
+
+void Satellite::rotateEnable(bool flag)
+{
+	if (!flag)
+		return;
+
+	auto touchLis = EventListenerTouchOneByOne::create();
+	touchLis->onTouchBegan = CC_CALLBACK_2(Satellite::onTouchBegan, this);
+	touchLis->onTouchMoved = CC_CALLBACK_2(Satellite::onTouchMoved, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchLis, this);
+
+
 }
 
 

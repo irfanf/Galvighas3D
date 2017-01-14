@@ -13,9 +13,13 @@
 //------------------------
 #include "CollisionNode.h"
 #include "Obj3d.h"
-#include "Player.h"
 //------------------------
-
+enum Type
+{
+	Asteroid,
+	Star,
+	Meteor
+};
 //---------------------------------------------------------------------
 class Enemy : public Obj3D
 {
@@ -27,9 +31,9 @@ private:
 	cocos2d::Vec3 _dir;					//方向
 
 public:
-	static Enemy* create();				//関数を作成する
-	void update(float dt)override;		//更新
-	virtual bool init();				//初期化
+	static Enemy* create(Type type);			//関数を作成する
+	void update(float dt)override;				//更新
+	virtual bool init(Type type);				//初期化
 
 	//ターゲットを決める
 	void setTargetPos(cocos2d::Vec3 targetPos) { _targetPos = targetPos; }
@@ -55,6 +59,7 @@ public:
 		}
 	}
 
+	
 	//敵のオブジェクトを取得
 	Obj3D* getObj() { return _pEnemyObj; }
 

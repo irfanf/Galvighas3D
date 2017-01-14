@@ -26,5 +26,6 @@ public:
 	bool initPerspective(Crystal* crystal, float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 	void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+	void rotateEnable(bool flag);
 };
 //-------------------------------------------------

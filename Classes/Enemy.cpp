@@ -15,10 +15,10 @@ USING_NS_CC;
 //------------------------------------
 //@! クラス作成
 //------------------------------------
-Enemy * Enemy::create()
+Enemy * Enemy::create(Type type)
 {
 	auto obj3d = new (std::nothrow) Enemy();
-	if (obj3d && obj3d->init())
+	if (obj3d && obj3d->init(type))
 	{
 		obj3d->_contentSize = obj3d->getBoundingBox().size;
 
@@ -32,7 +32,7 @@ Enemy * Enemy::create()
 //------------------------------------
 //@! クラスの初期化
 //------------------------------------
-bool Enemy::init()
+bool Enemy::init(Type type)
 {
 	if (!Obj3D::init())
 	{
@@ -42,9 +42,22 @@ bool Enemy::init()
 	//敵のスピードを設定する
 	float speed = (rand() % 10) + 5;
 
-	//敵のオブジェクトの作成
-	_pEnemyObj = Obj3D::create("enemy/asteroid.c3b");
-	this->addChild(_pEnemyObj);
+
+	switch (type)
+	{
+	case Meteor:
+		//敵のオブジェクトの作成
+		_pEnemyObj = Obj3D::create("enemy/meteor.c3b");
+		this->addChild(_pEnemyObj);
+		break;
+	case Star:
+		//敵のオブジェクトの作成
+		_pEnemyObj = Obj3D::create("enemy/star.c3b");
+		this->addChild(_pEnemyObj);
+		break;
+
+	}
+
 
 	//敵の当たり判定をつける
 	_pCollisionNodeEnemy = SphereNode::create();

@@ -43,7 +43,7 @@ bool GameOverScene::init(int score,int highScore)
 	go->setPosition(visibleSize.width / 2, visibleSize.height / 2 + 100.f);
 	this->addChild(go);
 
-	//タッチを有効する
+	//タッチを有効にする
 	this->setTouchEnabled(true);
 	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 

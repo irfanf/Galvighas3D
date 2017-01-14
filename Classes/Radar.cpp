@@ -12,6 +12,8 @@
 #include "Radar.h"
 //-------------------
 USING_NS_CC;
+
+const float PI = 3.141592f;
 //------------------------------------
 //@! クラス作成
 //------------------------------------
@@ -34,20 +36,18 @@ Radar* Radar::create()
 //------------------------------------
 bool Radar::init()
 {
-	
 	if (!Node::init())
 		return false;
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-		
 	_pEmptyNode = Node::create();
 	this->addChild(_pEmptyNode);
 
 	//レーダーのスプライトを出す
 	_pRadarSpr = Sprite::create("radar/radar.png");
+	_pRadarSpr->setOpacity(128);
+	//_pRadarSpr->setRotation(45);
 	_pEmptyNode->addChild(_pRadarSpr);
-
 
 	//更新に進む
 	this->scheduleUpdate();
@@ -59,13 +59,42 @@ bool Radar::init()
 //------------------------------------
 void Radar::update(float dt)
 {
-
+	
 }
 //------------------------------------
 //@! 隕石のドットスプライトを作成
 //------------------------------------
-void Radar::createMeteorDot()
+void Radar::createMeteorDot(Enemy* enemy)
 {
-	_pMeteorDotSpr = Sprite::create("radar/dotRed.png");
-	_pEmptyNode->addChild(_pMeteorDotSpr);
+	auto dot = Dot::create(enemy);
+	_dots.push_back(dot);
+	_pEmptyNode->addChild(dot);
+	
+}
+void Radar::deleteMeteorDot(Enemy * enemy)
+{
+	std::list<Dot*>::iterator it;
+	for (it = _dots.begin(); it != _dots.end();it++)
+	{
+		if ((*it)->getMeteor() == enemy)
+		{
+			(*it)->removeFromParent();
+			_dots.erase(it);
+			return;
+		}
+	}
+}
+
+//------------------------------------
+//@! 回転の設定
+//@! 見るところ
+//------------------------------------
+void Radar::setRadarRot(const cocos2d::Vec3& cameraPos, const cocos2d::Vec3& playerPos)
+{
+	Vec3 dir =  playerPos - cameraPos;
+
+	float rad = atan2f(dir.x, dir.z);
+	float deg = -((rad * 180.0f) / PI);
+
+	_pRadarSpr->setRotation(deg);
 }

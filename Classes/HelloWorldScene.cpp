@@ -39,7 +39,6 @@ bool HelloWorld::init()
 	_time = 0;
 	_scene = CUT_IN;
 
-
 	_pCrystal = Crystal::create();
 	_pCrystal->setPosition3D(Vec3(0.f,-1.f,0.f));
 	_pCrystal->setHP(MAX_HP);
@@ -85,6 +84,10 @@ bool HelloWorld::init()
 	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
+	//createAsteroid(Meteor);
+	//createAsteroid(Meteor);
+	//createAsteroid(Meteor);
+
 	this->scheduleUpdate();
 
     return true;
@@ -95,6 +98,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * unused_ev
 	//タッチ座標を取得
 	_touchPos = touch->getLocationInView();
 	
+
 	for (int i = 0; i < _pMeteors.size(); )
 	{
 		//生きているかどうかの確認
@@ -110,16 +114,17 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * unused_ev
 		{
 			log("Touched");
 
-			//当たったら消す
+			//当たったら消す------------------------------------------
+			_pGameSystem->getRadar()->deleteMeteorDot(_pMeteors[i]);
 			_pMeteors[i]->SetDeath();
 			_pMeteors.erase(_pMeteors.begin() + i);       //  3番目の要素（9）を削除
 			//数を減らす
 			_meteorNum--;
+			
 			_spawnRate -= 0.075f;
-
 			_pGameSystem->setBonusTime(1);
 			_pGameSystem->setScore(100);
-
+			//--------------------------------------------------------
 			log("%f", _spawnRate);
 
 			//パーティクルをつくる
@@ -146,8 +151,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * unused_ev
 //-----------------------------
 //!@ 更新
 //!@ 時間
-
-
+//-----------------------------
 void HelloWorld::update(float dt)
 {
 	switch (_scene)
@@ -169,20 +173,19 @@ void HelloWorld::update(float dt)
 
 }
 
-void HelloWorld::setMeteor()
+void HelloWorld::createAsteroid(Type type)
 {
 
 	float x = random(-200, 200);
 	float z = random(-200, 200);
 
 	//隕石登録する
-	_pMeteors.push_back(Enemy::create());
+	_pMeteors.push_back(Enemy::create(type));
 
 	//隕石の数を数える
 	_meteorNum++;
 	
 	std::vector<Enemy*>::iterator p = _pMeteors.begin();
-	//auto p = _pMeteors.begin();
 
 	for (int i = 0; i < _meteorNum - 1; i++)
 	{
@@ -194,6 +197,8 @@ void HelloWorld::setMeteor()
 	obj->setTargetPos(_pCrystal->getPosition3D());
 	this->addChild(obj);
 	obj->callEnemyUpdate();
+
+	_pGameSystem->getRadar()->createMeteorDot(obj);
 
 }
 
@@ -208,13 +213,16 @@ void HelloWorld::onCutIn()
 
 void HelloWorld::onPlay()
 {
+	_pSatellite->rotateEnable(true);
+
 	//時間
 	_time++;
+
 
 	//隕石を出すタイミング
 	if (_time > 60 * _spawnRate)
 	{
-		setMeteor();
+		createAsteroid(Meteor);
 		_time = 0;
 	}
 
@@ -224,7 +232,6 @@ void HelloWorld::onPlay()
 		_spawnRate = 0.5f;
 	}
 
-	
 	float hp = _pCrystal->getHP();
 
 	if (hp <= 0)
@@ -236,29 +243,45 @@ void HelloWorld::onPlay()
 	if (_pCrystal->GetCollisionNodeBody())
 	{
 		const Sphere* crystalSphere = _pCrystal->GetCollisionNodeBody();
-
-
 		for (int i = 0; i < _pMeteors.size(); )
 		{
-
 			if (_pMeteors[i]->GetDeath()) continue;
 
 			const Sphere* enemySphere = _pMeteors[i]->GetCollisionNodeEnemy();
 
 			Vec3 inter;
-			//float hp = _pEnemies[i]->getHp();
 
 			if (CheckSphere2Sphere(*enemySphere, *crystalSphere, &inter))
 			{
 				log("Hit");
 
+				//---------------------------------------------------------------
+				_pGameSystem->getRadar()->deleteMeteorDot(_pMeteors[i]);
 				_pMeteors[i]->SetDeath();
-				//_pMeteors.erase(_pMeteors.fi);
 				_pMeteors.erase(_pMeteors.begin() + i);       //  3番目の要素（9）を削除
+				_meteorNum--;
+				//--------------------------------------------------------------
+				
+				//_pGameSystem->getRadar()->deleteMeteorDot(_pMeteors[i]);
+
+				//std::list<Dot*>::iterator it;
+
+				//for (it = _pGameSystem->getRadar()->getDots().begin(); it != _pGameSystem->getRadar()->getDots().end();)
+				//{
+				//	Dot* dot = *it;
+
+				//	if (!dot->isAlive())
+				//	{
+				//		_pGameSystem->getRadar()->getDots().remove(dot);
+
+				//		dot->removeFromParent();
+				//		dot = nullptr;
+				//	}
+
+				//}
+
 
 				hp -= 10;
-
-				_meteorNum--;
 
 				PUParticleSystem3D* particle = PUParticleSystem3D::create("particle/explosionSystem.pu");
 				particle->setPosition3D(inter);
@@ -285,6 +308,8 @@ void HelloWorld::onPlay()
 
 	_pCrystal->setHP(hp);
 	_pGameSystem->setHPBarScale(hpScale);
+	_pGameSystem->setCurrentCameraPos(_pSatellite->getPosition3D());
+	_pGameSystem->setCurrentPlayerPos(_pCrystal->getPosition3D());
 }
 
 void HelloWorld::gameOver()

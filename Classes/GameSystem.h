@@ -12,6 +12,8 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "Radar.h"
+
 
 class GameSystem : public cocos2d::Node
 {
@@ -28,6 +30,10 @@ private:
 	cocos2d::Label* _plusTimeText;
 	cocos2d::Sprite* _hpBarSpr;
 	cocos2d::BillBoard* _billboard;
+	Radar* _pRadar;
+
+	cocos2d::Vec3 _playerPos;
+	cocos2d::Vec3 _cameraPos;
 
 	bool _start;
 
@@ -51,5 +57,8 @@ public:
 
 	void update(float dt)override;
 	void setBonusTime(float bonusTime);
+	void setCurrentPlayerPos(const cocos2d::Vec3& pos) { _playerPos = pos; }
+	void setCurrentCameraPos(const cocos2d::Vec3& pos) { _cameraPos = pos; }
 	void setStartSystem(bool start) { _start = start; }
+	Radar* getRadar() { return _pRadar; }
 };

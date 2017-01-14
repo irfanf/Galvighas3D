@@ -24,7 +24,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/ReadySetGo.cpp \
                    ../../Classes/TitleScene.cpp \
                    ../../Classes/LogoScene.cpp \
-                   ../../Classes/Radar.cpp
+                   ../../Classes/Radar.cpp \
+                   ../../Classes/Dot.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
