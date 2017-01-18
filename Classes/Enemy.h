@@ -14,14 +14,9 @@
 #include "CollisionNode.h"
 #include "Obj3d.h"
 //------------------------
-enum Type
-{
-	Asteroid,
-	Star,
-	Meteor
-};
+
 //---------------------------------------------------------------------
-class Enemy : public Obj3D
+class Meteor : public Obj3D
 {
 private:
 	Obj3D* _pEnemyObj;					//敵のオブジェクト
@@ -31,9 +26,9 @@ private:
 	cocos2d::Vec3 _dir;					//方向
 
 public:
-	static Enemy* create(Type type);			//関数を作成する
+	static Meteor* create();			//関数を作成する
 	void update(float dt)override;				//更新
-	virtual bool init(Type type);				//初期化
+	virtual bool init();				//初期化
 
 	//ターゲットを決める
 	void setTargetPos(cocos2d::Vec3 targetPos) { _targetPos = targetPos; }

@@ -1,11 +1,14 @@
-//--------------------------------------------------------------------------------------
-// ƒtƒ@ƒCƒ‹–¼: CollisionNode.h
-// ì¬Ò:
-// ì¬“ú:
-// à–¾: Õ“Ë”»’è—pƒm[ƒh
-//       ”CˆÓ‚Ìƒ[ƒ‹ƒhs—ñ‚É‚Ô‚ç‚³‚°AeqŠÖŒW‚ğŒ‹‚Ô‚±‚Æ‚ª‚Å‚«‚Ü‚·B
-//       ƒfƒoƒbƒO—p‚ÉA“–‚½‚è”»’è‚ğ•\¦‚·‚é‹@”\‚ª‚ ‚è‚Ü‚·B
-//--------------------------------------------------------------------------------------
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/20
+//!	
+//!	CollisionNode.h
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//!
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
 
 #include "Obj3D.h"
@@ -13,49 +16,49 @@
 
 
 
-// “–‚½‚è”»’èƒm[ƒhŠÇ—ƒNƒ‰ƒX
+// å½“ãŸã‚Šåˆ¤å®šãƒãƒ¼ãƒ‰ç®¡ç†ã‚¯ãƒ©ã‚¹
 class CollisionNode
 {
 protected:
-	// ƒfƒoƒbƒO•\¦‚ÌON/OFFƒtƒ‰ƒO
+	// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºã®ON/OFFãƒ•ãƒ©ã‚°
 	static bool s_DebugVisible;
 public:
-	// ƒfƒoƒbƒO•\¦‚ÌON/OFF‚ğİ’è
+	// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºã®ON/OFFã‚’è¨­å®š
 	static void SetDebugVisible(bool flag) { s_DebugVisible = flag; }
-	// ƒfƒoƒbƒO•\¦‚ÌON/OFF‚ğæ“¾
+	// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºã®ON/OFFã‚’å–å¾—
 	static bool GetDebugVisible(void) { return s_DebugVisible; }
 };
 
-// “–‚½‚è”»’è‹…ƒm[ƒh
+// å½“ãŸã‚Šåˆ¤å®šçƒãƒãƒ¼ãƒ‰
 class SphereNode : public Sphere, public Obj3D
 {
 public:
 	CREATE_FUNC(SphereNode);
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	bool init();
-	// –ˆƒtƒŒ[ƒ€XV
+	// æ¯ãƒ•ãƒ¬ãƒ¼ãƒ æ›´æ–°
 	void update(float delta);
-	// •`‰æ
+	// æç”»
 	void visit(cocos2d::Renderer * renderer, const cocos2d::Mat4 & parentTransform, uint32_t parentFlags);
-	// ƒ[ƒJƒ‹”¼Œa‚ğİ’è
+	// ãƒ­ãƒ¼ã‚«ãƒ«åŠå¾„ã‚’è¨­å®š
 	void SetRadius(float radius);
 
 };
 
-// “–‚½‚è”»’èƒJƒvƒZƒ‹ƒm[ƒh
+// å½“ãŸã‚Šåˆ¤å®šã‚«ãƒ—ã‚»ãƒ«ãƒãƒ¼ãƒ‰
 class CapsuleNode : public Capsule, public Obj3D
 {
 public:
 	CREATE_FUNC(CapsuleNode);
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	bool init();
-	// –ˆƒtƒŒ[ƒ€XV
+	// æ¯ãƒ•ãƒ¬ãƒ¼ãƒ æ›´æ–°
 	void update(float delta);
-	// •`‰æ
+	// æç”»
 	void visit(cocos2d::Renderer * renderer, const cocos2d::Mat4 & parentTransform, uint32_t parentFlags);
-	// ƒ[ƒJƒ‹”¼Œa‚ğİ’è
+	// ãƒ­ãƒ¼ã‚«ãƒ«åŠå¾„ã‚’è¨­å®š
 	void SetRadius(float radius);
-	// ƒ[ƒJƒ‹²’·‚³‚ğİ’è
+	// ãƒ­ãƒ¼ã‚«ãƒ«è»¸é•·ã•ã‚’è¨­å®š
 	void SetLength(float length);
 };
 

@@ -1,17 +1,31 @@
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/20
+//!	
+//!	Collision.cpp
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//!
+//! 3Dãƒ¢ãƒ‡ãƒ«ã®å½“ãŸã‚Šåˆ¤å®šã®å½¢ã‚„ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã‚¯ãƒ©ã‚¹
+//!
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "Collision.h"
 
 USING_NS_CC;
-
+//----------------------------------------
+//@! Sphereã¨Sphereã®å½“ãŸã‚Šåˆ¤å®šã‚’ãƒã‚§ãƒƒã‚¯
+//@! SphereA,sphereB,inter
+//@! å½“ãŸã£ãŸã‹ã©ã†ã‹
+//----------------------------------------
 bool CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB,Vec3* inter)
 {
-	//‹…‚`‚Æ‚a‚Ì’†SÀ•W‚Ì·‚ğŒvZ‚·‚é
-	//Vec3 sub = sphereA.center - sphereB.center;
-	
-	//float distance = Distance3D(sphereA.center, sphereB.center);
+	//ä¸­å¿ƒã¨ä¸­å¿ƒã®å·®
 	float distanceSQ = Distance3DSQ(sphereA.center, sphereB.center);
-
+	//åŠå¾„ã®åˆè¨ˆ
 	float radius_sum = sphereA.radius + sphereB.radius;
-
+	
 	float radius_sumSQ = radius_sum * radius_sum;
 
 	if (distanceSQ > radius_sumSQ)
@@ -28,7 +42,11 @@ bool CheckSphere2Sphere(const Sphere& sphereA, const Sphere& sphereB,Vec3* inter
 
 	return true;
 }
-
+//----------------------------------------
+//@! Sphereã¨Capsuleã®å½“ãŸã‚Šåˆ¤å®šã‚’ãƒã‚§ãƒƒã‚¯
+//@! Sphere,capsule,inter
+//@! å½“ãŸã£ãŸã‹ã©ã†ã‹
+//----------------------------------------
 bool CheckSphere2Capsule(const Sphere & sphere, const Capsule & capsule, Vec3* inter)
 {
 	float distance = GetSqDistancePoint2Segment(sphere.center, capsule.segment);
@@ -52,7 +70,11 @@ bool CheckSphere2Capsule(const Sphere & sphere, const Capsule & capsule, Vec3* i
 
 	return true;
 }
-
+//----------------------------------------
+//@! Capsuleã¨Capsuleã®å½“ãŸã‚Šåˆ¤å®šã‚’ãƒã‚§ãƒƒã‚¯
+//@! CapsuleA,capsuleB,inter
+//@! å½“ãŸã£ãŸã‹ã©ã†ã‹
+//----------------------------------------
 bool CheckCapsule2Capsule(const Capsule & capsuleA, const Capsule & capsuleB,Vec3* inter)
 {
 	float distanceSQ = GetSqDistanceSegment2Segment(capsuleA.segment, capsuleB.segment);
@@ -76,20 +98,24 @@ bool CheckCapsule2Capsule(const Capsule & capsuleA, const Capsule & capsuleB,Vec
 
 	return true;
 }
-
+//----------------------------------------
+//@! Touchã¨Sphereã®å½“ãŸã‚Šåˆ¤å®šã‚’ãƒã‚§ãƒƒã‚¯
+//@! ã‚¿ãƒƒãƒåº§æ¨™,Sphere,Camera,inter
+//@! å½“ãŸã£ãŸã‹ã©ã†ã‹
+//----------------------------------------
 bool CheckTouch2Sphere(const cocos2d::Vec2 & touch, const Sphere & sphere, cocos2d::Camera* camera, cocos2d::Vec3 * inter)
 {
 
 	Vec3 nearP(touch.x, touch.y, 0.0f);
 	Vec3 farP(touch.x, touch.y, 1.0f);
 
-	//3D¢ŠEÀ•W‚©‚ç2D‚Ì¢ŠE‚É•ÏŠ·‚·‚é
+	//3Dä¸–ç•Œåº§æ¨™ã‹ã‚‰2Dã®ä¸–ç•Œã«å¤‰æ›ã™ã‚‹
 	Segment segment;
-	//ƒXƒ^[ƒg‚ÆƒGƒ“ƒh‚Ì“_‚ğŒˆ‚ß‚é
+	//ã‚¹ã‚¿ãƒ¼ãƒˆã¨ã‚¨ãƒ³ãƒ‰ã®ç‚¹ã‚’æ±ºã‚ã‚‹
 	segment.start = camera->unproject(nearP);
 	segment.end = camera->unproject(farP);
 	
-	//‹——£‚ğæ“¾
+	//è·é›¢ã‚’å–å¾—
 	Vec3 dir(segment.end - segment.start);
 	dir.normalize();
 
@@ -111,9 +137,9 @@ bool CheckTouch2Sphere(const cocos2d::Vec2 & touch, const Sphere & sphere, cocos
 		return false;
 
 	s = sqrtf(s);
-	//‘O‚Ì“_
+	//å‰ã®ç‚¹
 	float a1 = -B - s;
-	//‰œ‚Ì“_
+	//å¥¥ã®ç‚¹
 	float a2 = -B + s;
 
 	if (a1 < 0.f || a2 < 0.f)
@@ -134,20 +160,26 @@ bool CheckTouch2Sphere(const cocos2d::Vec2 & touch, const Sphere & sphere, cocos
 		float distance1 = inter->distance(sphere.center);
 		float distance2 = inter2.distance(sphere.center);
 
-		static int a = 0;
-		a++;
 	}
 
 	return true;
 }
-
+//----------------------------------------
+//@! è·é›¢ã‚’æ±‚ã‚ã‚‹
+//@! ç‚¹ï¼‘ã¨ç‚¹ï¼’
+//@! ãƒ«ãƒ¼ãƒˆ
+//----------------------------------------
 float Distance3DSQ(const cocos2d::Vec3& p1, const cocos2d::Vec3& p2)
 {
 	Vec3 sub = p1 - p2;
 	return VectorLenghtSQ(sub);
 
 }
-
+//----------------------------------------
+//@! è·é›¢ã‚’è¨ˆç®—ã™ã‚‹
+//@! SQã®ãƒã‚¤ãƒ³ãƒˆ
+//@! è·é›¢
+//----------------------------------------
 float VectorLenghtSQ(const cocos2d::Vec3& v)
 {
 
@@ -159,59 +191,43 @@ float VectorLenghtSQ(const cocos2d::Vec3& v)
 	return distance;
 }
 
-
-
-//float VectorLenght(const Vec3& v)
-//{
-//	float distance = sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
-//	return distance;
-//}
-
-
-
-//float Distance3D(const Vec3& p1, const Vec3& p2)
-//{
-//	Vec3 sub = p1 - p2;
-//	return VectorLenght(sub);
-//}
-
 //--------------------------------------------------------------------------------------------
-// à@–¾ : “_‚Æü•ª‚Ì‹——£‚Ì“ñæ‚ğæ“¾
-// ˆø@” : _point	“_
-//			_segment	ü•ª
-// –ß‚è’l : “_‚Æü•ª‚Ì‹——£‚Ì“ñæ
-// ƒ@ƒ‚ : •½•ûª‚ğZo‚µ‚È‚¢”Å
-//	ü•ª‚Ì’[“_‚ğA,B	“_‚ğC‚Æ‚µ‚ÄA
-//	‡@ABƒxƒNƒgƒ‹‚ÆACƒxƒNƒgƒ‹‚Ì“àÏ‚ª•‰‚ÌA“_A‚ª“_C‚ÌÅ‹ß–T‚Å‚ ‚é
-//	‡ABAƒxƒNƒgƒ‹‚ÆBCƒxƒNƒgƒ‹‚Ì“àÏ‚ª•‰‚ÌA“_B‚ª“_C‚ÌÅ‹ß–T‚Å‚ ‚é
-//	‡B@‡@A‡A‚ÉŠY“–‚µ‚È‚¢ê‡A“_C‚ÌË‰e‚ªAC‚Ì“à‘¤‚É‘¶İ‚·‚é‚½‚ßA‚»‚Ì“_‚ªÅ‹ß–T‚Å‚ ‚é
+// èª¬ã€€æ˜ : ç‚¹ã¨ç·šåˆ†ã®è·é›¢ã®äºŒä¹—ã‚’å–å¾—
+// å¼•ã€€æ•° : _point	ç‚¹
+//			_segment	ç·šåˆ†
+// æˆ»ã‚Šå€¤ : ç‚¹ã¨ç·šåˆ†ã®è·é›¢ã®äºŒä¹—
+// ãƒ¡ã€€ãƒ¢ : å¹³æ–¹æ ¹ã‚’ç®—å‡ºã—ãªã„ç‰ˆ
+//	ç·šåˆ†ã®ç«¯ç‚¹ã‚’A,B	ç‚¹ã‚’Cã¨ã—ã¦ã€
+//	â‘ ABãƒ™ã‚¯ãƒˆãƒ«ã¨ACãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©ãŒè² ã®æ™‚ã€ç‚¹AãŒç‚¹Cã®æœ€è¿‘å‚ã§ã‚ã‚‹
+//	â‘¡BAãƒ™ã‚¯ãƒˆãƒ«ã¨BCãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©ãŒè² ã®æ™‚ã€ç‚¹BãŒç‚¹Cã®æœ€è¿‘å‚ã§ã‚ã‚‹
+//	â‘¢ã€€â‘ ã€â‘¡ã«è©²å½“ã—ãªã„å ´åˆã€ç‚¹Cã®å°„å½±ãŒACã®å†…å´ã«å­˜åœ¨ã™ã‚‹ãŸã‚ã€ãã®ç‚¹ãŒæœ€è¿‘å‚ã§ã‚ã‚‹
 //--------------------------------------------------------------------------------------------
 float GetSqDistancePoint2Segment(const Vec3& _point, const Segment& _segment)
 {
-	const float epsilon = 1.0e-5f;	// Œë·‹zû—p‚Ì”÷¬‚È’l
+	const float epsilon = 1.0e-5f;	// èª¤å·®å¸åç”¨ã®å¾®å°ãªå€¤
 	Vec3 SegmentSub;
 	Vec3 SegmentPoint;
 	Vec3 CP;
 
-	// ü•ª‚Ìn“_‚©‚çI“_‚Ö‚ÌƒxƒNƒgƒ‹
+	// ç·šåˆ†ã®å§‹ç‚¹ã‹ã‚‰çµ‚ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
 	SegmentSub = _segment.end - _segment.start;
 
-	// ü•ª‚Ìn“_‚©‚ç“_‚Ö‚ÌƒxƒNƒgƒ‹
+	// ç·šåˆ†ã®å§‹ç‚¹ã‹ã‚‰ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
 	SegmentPoint = _point - _segment.start;
 	if (SegmentSub.dot(SegmentPoint) < epsilon)
-	{// ‚QƒxƒNƒgƒ‹‚Ì“àÏ‚ª•‰‚È‚çAü•ª‚Ìn“_‚ªÅ‹ß–T
+	{// ï¼’ãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©ãŒè² ãªã‚‰ã€ç·šåˆ†ã®å§‹ç‚¹ãŒæœ€è¿‘å‚
 		return SegmentPoint.dot(SegmentPoint);
 	}
 
-	// “_‚©‚çü•ª‚ÌI“_‚Ö‚ÌƒxƒNƒgƒ‹
+	// ç‚¹ã‹ã‚‰ç·šåˆ†ã®çµ‚ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
 	SegmentPoint = _segment.end - _point;
 	if (SegmentSub.dot(SegmentPoint) < epsilon)
-	{// ‚QƒxƒNƒgƒ‹‚Ì“àÏ‚ª•‰‚È‚çAü•ª‚ÌI“_‚ªÅ‹ß–T
+	{// ï¼’ãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©ãŒè² ãªã‚‰ã€ç·šåˆ†ã®çµ‚ç‚¹ãŒæœ€è¿‘å‚
 		return SegmentPoint.dot(SegmentPoint);
 	}
 
-	// ã‹L‚Ì‚Ç‚¿‚ç‚É‚àŠY“–‚µ‚È‚¢ê‡Aü•ªã‚É—‚Æ‚µ‚½Ë‰e‚ªÅ‹ß–T
-	// (–{—ˆ‚È‚çƒTƒCƒ“‚Å‹‚ß‚é‚ªAŠOÏ‚Ì‘å‚«‚³/ü•ª‚ÌƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚Å‹‚Ü‚é)
+	// ä¸Šè¨˜ã®ã©ã¡ã‚‰ã«ã‚‚è©²å½“ã—ãªã„å ´åˆã€ç·šåˆ†ä¸Šã«è½ã¨ã—ãŸå°„å½±ãŒæœ€è¿‘å‚
+	// (æœ¬æ¥ãªã‚‰ã‚µã‚¤ãƒ³ã§æ±‚ã‚ã‚‹ãŒã€å¤–ç©ã®å¤§ãã•/ç·šåˆ†ã®ãƒ™ã‚¯ãƒˆãƒ«ã®å¤§ãã•ã§æ±‚ã¾ã‚‹)
 	Vec3::cross(SegmentSub, SegmentPoint, &CP);
 
 	return CP.dot(CP) / SegmentSub.dot(SegmentSub);
@@ -219,51 +235,51 @@ float GetSqDistancePoint2Segment(const Vec3& _point, const Segment& _segment)
 
 
 //--------------------------------------------------------------------------------------------
-// à@–¾ : ü•ª‚Æü•ª‚Ì‹——£‚Ì“ñæ‚ğæ“¾
-// ˆø@” : _segment0	ü•ª0
-//			_segment1	ü•ª1
-// –ß‚è’l : ü•ª‚Æü•ª‚Ì‹——£‚Ì“ñæ
-// ƒ@ƒ‚ : •½•ûª‚ğZo‚µ‚È‚¢”Å
-//	‡@’¼üã‚ÌÅÚ‹ß“_‚ª—¼•û‚Ìü•ª‚Ì“à‘¤‚É‘¶İ‚·‚é
-//	‡A’¼üã‚ÌÅÚ‹ß“_‚ªˆê•û‚Ì‚İ‚Ìü•ª‚Ì“à‘¤‚É‘¶İ‚·‚é
-//	‡B’¼üã‚ÌÅÚ‹ß“_‚ª—¼•û‚Ìü•ª‚ÌŠO‘¤‚É‘¶İ‚·‚é
-//	‚»‚ê‚¼‚ê‚ÌƒP[ƒX‚Å“ñ‚Â‚Ìü•ªã‚ÌÅÚ‹ß“_‚ğ‹‚ßA‚»‚Ì‹——£‚ğZo‚·‚é
+// èª¬ã€€æ˜ : ç·šåˆ†ã¨ç·šåˆ†ã®è·é›¢ã®äºŒä¹—ã‚’å–å¾—
+// å¼•ã€€æ•° : _segment0	ç·šåˆ†0
+//			_segment1	ç·šåˆ†1
+// æˆ»ã‚Šå€¤ : ç·šåˆ†ã¨ç·šåˆ†ã®è·é›¢ã®äºŒä¹—
+// ãƒ¡ã€€ãƒ¢ : å¹³æ–¹æ ¹ã‚’ç®—å‡ºã—ãªã„ç‰ˆ
+//	â‘ ç›´ç·šä¸Šã®æœ€æ¥è¿‘ç‚¹ãŒä¸¡æ–¹ã®ç·šåˆ†ã®å†…å´ã«å­˜åœ¨ã™ã‚‹æ™‚
+//	â‘¡ç›´ç·šä¸Šã®æœ€æ¥è¿‘ç‚¹ãŒä¸€æ–¹ã®ã¿ã®ç·šåˆ†ã®å†…å´ã«å­˜åœ¨ã™ã‚‹æ™‚
+//	â‘¢ç›´ç·šä¸Šã®æœ€æ¥è¿‘ç‚¹ãŒä¸¡æ–¹ã®ç·šåˆ†ã®å¤–å´ã«å­˜åœ¨ã™ã‚‹æ™‚
+//	ãã‚Œãã‚Œã®ã‚±ãƒ¼ã‚¹ã§äºŒã¤ã®ç·šåˆ†ä¸Šã®æœ€æ¥è¿‘ç‚¹ã‚’æ±‚ã‚ã€ãã®è·é›¢ã‚’ç®—å‡ºã™ã‚‹
 //--------------------------------------------------------------------------------------------
 float GetSqDistanceSegment2Segment(const Segment& _segment0, const Segment& _segment1)
 {
-	const float epsilon = 1.0e-5f;	// Œë·‹zû—p‚Ì”÷¬‚È’l
+	const float epsilon = 1.0e-5f;	// èª¤å·®å¸åç”¨ã®å¾®å°ãªå€¤
 	Vec3 d0, d1, r;
-	Vec3 c0, c1;	// “ñ‚Â‚Ìü•ªã‚ÌÅÚ‹ß“_
-	Vec3 v;		// c1¨c0ƒxƒNƒgƒ‹
+	Vec3 c0, c1;	// äºŒã¤ã®ç·šåˆ†ä¸Šã®æœ€æ¥è¿‘ç‚¹
+	Vec3 v;		// c1â†’c0ãƒ™ã‚¯ãƒˆãƒ«
 	float a, b, c, e, f;
 	float s, t;
 	float denom;
 	float tnom;
 
-	d0 = _segment0.end - _segment0.start;	// ü•ª0‚Ì•ûŒüƒxƒNƒgƒ‹
-	d1 = _segment1.end - _segment1.start; // ü•ª1‚Ì•ûŒüƒxƒNƒgƒ‹
-	r = _segment0.start - _segment1.start; // ü•ª1‚Ìn“_‚©‚çü•ª0‚Ìn“_‚Ö‚ÌƒxƒNƒgƒ‹
-	a = d0.dot(d0);		// ü•ª0‚Ì‹——£‚Ì“ñæ
-	e = d1.dot(d1);		// ü•ª1‚Ì‹——£‚Ì“ñæ
-						//	b = d0.dot(d1);		// Å“K‰»‚Ìˆ×Œã•û‚ÉˆÚ“®‚µ‚½
-						//	c = d0.dot(r);		// Å“K‰»‚Ìˆ×Œã•û‚ÉˆÚ“®‚µ‚½
-						//	f = d1.dot(r);		// Å“K‰»‚Ìˆ×Œã•û‚ÉˆÚ“®‚µ‚½
+	d0 = _segment0.end - _segment0.start;	// ç·šåˆ†0ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
+	d1 = _segment1.end - _segment1.start; // ç·šåˆ†1ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
+	r = _segment0.start - _segment1.start; // ç·šåˆ†1ã®å§‹ç‚¹ã‹ã‚‰ç·šåˆ†0ã®å§‹ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
+	a = d0.dot(d0);		// ç·šåˆ†0ã®è·é›¢ã®äºŒä¹—
+	e = d1.dot(d1);		// ç·šåˆ†1ã®è·é›¢ã®äºŒä¹—
+						//	b = d0.dot(d1);		// æœ€é©åŒ–ã®ç‚ºå¾Œæ–¹ã«ç§»å‹•ã—ãŸ
+						//	c = d0.dot(r);		// æœ€é©åŒ–ã®ç‚ºå¾Œæ–¹ã«ç§»å‹•ã—ãŸ
+						//	f = d1.dot(r);		// æœ€é©åŒ–ã®ç‚ºå¾Œæ–¹ã«ç§»å‹•ã—ãŸ
 
-						// ‚¢‚Ã‚ê‚©‚Ìü•ª‚Ì’·‚³‚ª0‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
+						// ã„ã¥ã‚Œã‹ã®ç·šåˆ†ã®é•·ã•ãŒ0ã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯
 	if (a <= epsilon && e <= epsilon)
-	{// —¼•û’·‚³0
+	{// ä¸¡æ–¹é•·ã•0
 		v = _segment0.start - _segment1.start;
 
 		return v.dot(v);
 	}
 
 	if (a <= epsilon)
-	{// ü•ª0‚ª’·‚³0
+	{// ç·šåˆ†0ãŒé•·ã•0
 		return GetSqDistancePoint2Segment(_segment0.start, _segment1);
 	}
 
 	if (e <= epsilon)
-	{// ü•ª1‚ª’·‚³0
+	{// ç·šåˆ†1ãŒé•·ã•0
 		return GetSqDistancePoint2Segment(_segment1.start, _segment0);
 	}
 
@@ -271,9 +287,9 @@ float GetSqDistanceSegment2Segment(const Segment& _segment0, const Segment& _seg
 	f = d1.dot(r);
 	c = d0.dot(r);
 
-	denom = a * e - b * b;	// í‚É”ñ•‰
-							// ü•ª‚ª•½s‚Å‚È‚¢ê‡A’¼ü0ã‚Ì’¼ü1‚É‘Î‚·‚éÅ‹ßÚ“_‚ğŒvZA‚»‚µ‚Ä
-							// ü•ª0ã‚ÉƒNƒ‰ƒ“ƒvB‚»‚¤‚Å‚È‚¢ê‡‚Í”CˆÓ‚Ìs‚ğ‘I‘ğ
+	denom = a * e - b * b;	// å¸¸ã«éè² 
+							// ç·šåˆ†ãŒå¹³è¡Œã§ãªã„å ´åˆã€ç›´ç·š0ä¸Šã®ç›´ç·š1ã«å¯¾ã™ã‚‹æœ€è¿‘æ¥ç‚¹ã‚’è¨ˆç®—ã€ãã—ã¦
+							// ç·šåˆ†0ä¸Šã«ã‚¯ãƒ©ãƒ³ãƒ—ã€‚ãã†ã§ãªã„å ´åˆã¯ä»»æ„ã®sã‚’é¸æŠ
 	if (denom != 0)
 	{
 		s = Clamp((b * f - c * e) / denom, 0, 1);
@@ -283,7 +299,7 @@ float GetSqDistanceSegment2Segment(const Segment& _segment0, const Segment& _seg
 		s = 0;
 	}
 
-	// ’¼ü1ã‚ÌÅÚ‹ß“_‚ğŒvZ
+	// ç›´ç·š1ä¸Šã®æœ€æ¥è¿‘ç‚¹ã‚’è¨ˆç®—
 	tnom = b * s + f;
 
 	if (tnom < 0)
@@ -310,12 +326,12 @@ float GetSqDistanceSegment2Segment(const Segment& _segment0, const Segment& _seg
 
 
 //--------------------------------------------------------------------------------------------
-// à@–¾ : “_‚Æü•ª‚ÌÅ‹ßÚ“_‚ğŒvZ
-// ˆø@” : _point	“_
-//			_segment	ü•ª
-//			_closest	Å‹ßÚ“_(Œ‹‰Êo—Í—pj
-// –ß‚è’l : ‚È‚µ
-// ƒ@ƒ‚ : 
+// èª¬ã€€æ˜ : ç‚¹ã¨ç·šåˆ†ã®æœ€è¿‘æ¥ç‚¹ã‚’è¨ˆç®—
+// å¼•ã€€æ•° : _point	ç‚¹
+//			_segment	ç·šåˆ†
+//			_closest	æœ€è¿‘æ¥ç‚¹(çµæœå‡ºåŠ›ç”¨ï¼‰
+// æˆ»ã‚Šå€¤ : ãªã—
+// ãƒ¡ã€€ãƒ¢ : 
 //--------------------------------------------------------------------------------------------
 void ClosestPtPoint2Segment(const Vec3& _point, const Segment& _segment, Vec3* _closest)
 {
@@ -327,56 +343,56 @@ void ClosestPtPoint2Segment(const Vec3& _point, const Segment& _segment, Vec3* _
 	s2p = _point - _segment.start;
 	t = segv.dot(s2p) / segv.dot(segv);
 
-	// ü•ª‚ÌŠO‘¤‚É‚ ‚éê‡At‚ğÅÚ‹ß“_‚Ü‚ÅƒNƒ‰ƒ“ƒv
+	// ç·šåˆ†ã®å¤–å´ã«ã‚ã‚‹å ´åˆã€tã‚’æœ€æ¥è¿‘ç‚¹ã¾ã§ã‚¯ãƒ©ãƒ³ãƒ—
 	t = Clamp(t, 0, 1);
 
-	// ƒNƒ‰ƒ“ƒv‚³‚ê‚Ä‚¢‚ét‚©‚ç‚ÌË‰e‚³‚ê‚Ä‚¢‚éˆÊ’u‚ğŒvZ
+	// ã‚¯ãƒ©ãƒ³ãƒ—ã•ã‚Œã¦ã„ã‚‹tã‹ã‚‰ã®å°„å½±ã•ã‚Œã¦ã„ã‚‹ä½ç½®ã‚’è¨ˆç®—
 	*_closest = t * segv + _segment.start;
 }
 
 //--------------------------------------------------------------------------------------------
-// à@–¾ : ü•ª‚Æü•ª‚ÌÅ‹ßÚ“_‚ğŒvZ
-// ˆø@” : _segment0	ü•ª0
-//			_segment1	ü•ª1
-//			_closest0	ü•ª0ã‚ÌÅ‹ßÚ“_(Œ‹‰Êo—Í—pj
-//			_closest1	ü•ª1ã‚ÌÅ‹ßÚ“_(Œ‹‰Êo—Í—pj
-// –ß‚è’l : ‚È‚µ
-// ƒ@ƒ‚ : 
+// èª¬ã€€æ˜ : ç·šåˆ†ã¨ç·šåˆ†ã®æœ€è¿‘æ¥ç‚¹ã‚’è¨ˆç®—
+// å¼•ã€€æ•° : _segment0	ç·šåˆ†0
+//			_segment1	ç·šåˆ†1
+//			_closest0	ç·šåˆ†0ä¸Šã®æœ€è¿‘æ¥ç‚¹(çµæœå‡ºåŠ›ç”¨ï¼‰
+//			_closest1	ç·šåˆ†1ä¸Šã®æœ€è¿‘æ¥ç‚¹(çµæœå‡ºåŠ›ç”¨ï¼‰
+// æˆ»ã‚Šå€¤ : ãªã—
+// ãƒ¡ã€€ãƒ¢ : 
 //--------------------------------------------------------------------------------------------
 void ClosestPtSegment2Segment(const Segment& _segment0, const Segment& _segment1, Vec3* _closest0, Vec3* _closest1)
 {
-	const float epsilon = 1.0e-5f;	// Œë·‹zû—p‚Ì”÷¬‚È’l
+	const float epsilon = 1.0e-5f;	// èª¤å·®å¸åç”¨ã®å¾®å°ãªå€¤
 	Vec3 d0, d1, r;
 	float a, b, c, e, f;
 	float s, t;
 	float denom;
 	float tnom;
 
-	d0 = _segment0.end - _segment0.start;		// ü•ª0‚Ì•ûŒüƒxƒNƒgƒ‹
-	d1 = _segment1.end - _segment1.start;		// ü•ª1‚Ì•ûŒüƒxƒNƒgƒ‹
-	r = _segment0.start - _segment1.start;	// ü•ª1‚Ìn“_‚©‚çü•ª0‚Ìn“_‚Ö‚ÌƒxƒNƒgƒ‹
-	a = d0.dot(d0);	// ü•ª0‚Ì‹——£‚Ì“ñæ
-	e = d1.dot(d1);	// ü•ª1‚Ì‹——£‚Ì“ñæ
-					//	b = d0.dot(d1);	// Å“K‰»‚Ìˆ×Œã•û‚ÉˆÚ“®‚µ‚½
-					//	c = d0.dot(r);	// Å“K‰»‚Ìˆ×Œã•û‚ÉˆÚ“®‚µ‚½
-					//	f = d1.dot(r);	// Å“K‰»‚Ìˆ×Œã•û‚ÉˆÚ“®‚µ‚½
+	d0 = _segment0.end - _segment0.start;		// ç·šåˆ†0ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
+	d1 = _segment1.end - _segment1.start;		// ç·šåˆ†1ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
+	r = _segment0.start - _segment1.start;	// ç·šåˆ†1ã®å§‹ç‚¹ã‹ã‚‰ç·šåˆ†0ã®å§‹ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
+	a = d0.dot(d0);	// ç·šåˆ†0ã®è·é›¢ã®äºŒä¹—
+	e = d1.dot(d1);	// ç·šåˆ†1ã®è·é›¢ã®äºŒä¹—
+					//	b = d0.dot(d1);	// æœ€é©åŒ–ã®ç‚ºå¾Œæ–¹ã«ç§»å‹•ã—ãŸ
+					//	c = d0.dot(r);	// æœ€é©åŒ–ã®ç‚ºå¾Œæ–¹ã«ç§»å‹•ã—ãŸ
+					//	f = d1.dot(r);	// æœ€é©åŒ–ã®ç‚ºå¾Œæ–¹ã«ç§»å‹•ã—ãŸ
 
-					// ‚¢‚Ã‚ê‚©‚Ìü•ª‚Ì’·‚³‚ª0‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
+					// ã„ã¥ã‚Œã‹ã®ç·šåˆ†ã®é•·ã•ãŒ0ã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯
 	if (a <= epsilon && e <= epsilon)
-	{// —¼•û’·‚³0
+	{// ä¸¡æ–¹é•·ã•0
 		*_closest0 = _segment0.start;
 		*_closest1 = _segment1.start;
 		return;
 	}
 
 	if (a <= epsilon)
-	{// ü•ª0‚ª’·‚³0
+	{// ç·šåˆ†0ãŒé•·ã•0
 		*_closest0 = _segment0.start;
 		ClosestPtPoint2Segment(_segment0.start, _segment1, _closest1);
 	}
 
 	if (e <= epsilon)
-	{// ü•ª1‚ª’·‚³0
+	{// ç·šåˆ†1ãŒé•·ã•0
 		*_closest1 = _segment1.start;
 		ClosestPtPoint2Segment(_segment1.start, _segment0, _closest0);
 	}
@@ -385,9 +401,9 @@ void ClosestPtSegment2Segment(const Segment& _segment0, const Segment& _segment1
 	f = d1.dot(r);
 	c = d0.dot(r);
 
-	denom = a * e - b * b;	// í‚É”ñ•‰
-							// ü•ª‚ª•½s‚Å‚È‚¢ê‡A’¼ü0ã‚Ì’¼ü1‚É‘Î‚·‚éÅ‹ßÚ“_‚ğŒvZA‚»‚µ‚Ä
-							// ü•ª0ã‚ÉƒNƒ‰ƒ“ƒvB‚»‚¤‚Å‚È‚¢ê‡‚Í”CˆÓ‚Ìs‚ğ‘I‘ğ
+	denom = a * e - b * b;	// å¸¸ã«éè² 
+							// ç·šåˆ†ãŒå¹³è¡Œã§ãªã„å ´åˆã€ç›´ç·š0ä¸Šã®ç›´ç·š1ã«å¯¾ã™ã‚‹æœ€è¿‘æ¥ç‚¹ã‚’è¨ˆç®—ã€ãã—ã¦
+							// ç·šåˆ†0ä¸Šã«ã‚¯ãƒ©ãƒ³ãƒ—ã€‚ãã†ã§ãªã„å ´åˆã¯ä»»æ„ã®sã‚’é¸æŠ
 	if (denom != 0)
 	{
 		s = Clamp((b * f - c * e) / denom, 0, 1);
@@ -397,7 +413,7 @@ void ClosestPtSegment2Segment(const Segment& _segment0, const Segment& _segment1
 		s = 0;
 	}
 
-	// ’¼ü1ã‚ÌÅÚ‹ß“_‚ğŒvZ
+	// ç›´ç·š1ä¸Šã®æœ€æ¥è¿‘ç‚¹ã‚’è¨ˆç®—
 	tnom = b * s + f;
 
 	if (tnom < 0)

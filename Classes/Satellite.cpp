@@ -56,6 +56,10 @@ bool Satellite::initPerspective(Crystal* crystal, float fieldOfView, float aspec
 	this->setPosition3D(cameraPos);
 	this->lookAt(Vec3(lookAt.x, lookAt.y + 1.f, lookAt.z));
 	//--------------------------------------------------------------------------------------
+	auto touchLis = EventListenerTouchOneByOne::create();
+	touchLis->onTouchBegan = CC_CALLBACK_2(Satellite::onTouchBegan, this);
+	touchLis->onTouchMoved = CC_CALLBACK_2(Satellite::onTouchMoved, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchLis, this);
 
 
 	return true;
@@ -97,17 +101,17 @@ void Satellite::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * unused_eve
 	_touchPrev = touch->getLocation();
 }
 
-void Satellite::rotateEnable(bool flag)
-{
-	if (!flag)
-		return;
-
-	auto touchLis = EventListenerTouchOneByOne::create();
-	touchLis->onTouchBegan = CC_CALLBACK_2(Satellite::onTouchBegan, this);
-	touchLis->onTouchMoved = CC_CALLBACK_2(Satellite::onTouchMoved, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchLis, this);
-
-
-}
+//void Satellite::rotateEnable(bool flag)
+//{
+//	if (!flag)
+//		return;
+//
+//	auto touchLis = EventListenerTouchOneByOne::create();
+//	touchLis->onTouchBegan = CC_CALLBACK_2(Satellite::onTouchBegan, this);
+//	touchLis->onTouchMoved = CC_CALLBACK_2(Satellite::onTouchMoved, this);
+//	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchLis, this);
+//
+//
+//}
 
 

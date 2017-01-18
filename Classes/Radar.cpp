@@ -54,24 +54,16 @@ bool Radar::init()
 	return true;
 }
 //------------------------------------
-//@! 更新
-//@! 時間
-//------------------------------------
-void Radar::update(float dt)
-{
-	
-}
-//------------------------------------
 //@! 隕石のドットスプライトを作成
 //------------------------------------
-void Radar::createMeteorDot(Enemy* enemy)
+void Radar::createMeteorDot(Meteor* enemy)
 {
 	auto dot = Dot::create(enemy);
 	_dots.push_back(dot);
 	_pEmptyNode->addChild(dot);
 	
 }
-void Radar::deleteMeteorDot(Enemy * enemy)
+void Radar::deleteMeteorDot(Meteor * enemy)
 {
 	std::list<Dot*>::iterator it;
 	for (it = _dots.begin(); it != _dots.end();it++)

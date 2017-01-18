@@ -28,9 +28,8 @@ public:
 	void setRadarRot(const cocos2d::Vec3& cameraPos,const cocos2d::Vec3& playerPos);
 	static Radar* create();
 	bool init()override;
-	void update(float dt)override;
-	void createMeteorDot(Enemy* enemy);
-	void deleteMeteorDot(Enemy* enemy);
+	void createMeteorDot(Meteor* enemy);
+	void deleteMeteorDot(Meteor* enemy);
 
 
 

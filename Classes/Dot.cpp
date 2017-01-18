@@ -1,11 +1,22 @@
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2017/1/14
+//!	
+//!	Dot.cpp
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//!
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "Dot.h"
 
 USING_NS_CC;
 
 //------------------------------------
-//@! ƒNƒ‰ƒXì¬
+//@! ã‚¯ãƒ©ã‚¹ä½œæˆ
 //------------------------------------
-Dot* Dot::create(Enemy* enemy)
+Dot* Dot::create(Meteor* enemy)
 {
 	auto dot = new (std::nothrow) Dot();
 	if (dot && dot->init(enemy))
@@ -20,29 +31,31 @@ Dot* Dot::create(Enemy* enemy)
 
 }
 //------------------------------------
-//@! ƒNƒ‰ƒX‚Ì‰Šú‰»
+//@! ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
 //------------------------------------
-bool Dot::init(Enemy* enemy)
+bool Dot::init(Meteor* meteor)
 {
 	if (!Node::init())
 		return false;
 
-	_pMeteor = enemy;
+	_pMeteor = meteor;
 
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	_pDotSpr = Sprite::create("radar/dotRed.png");
 	_pDotSpr->setCameraMask((unsigned short)CameraFlag::USER1);
 	this->addChild(_pDotSpr);
 
-	//XV‚Éi‚Þ
+	//æ›´æ–°ã«é€²ã‚€
 	this->scheduleUpdate();
 	return true;
 }
 //------------------------------------
-//@! XV
-//@! ŽžŠÔ
+//@! æ›´æ–°
+//@! æ™‚é–“
 //------------------------------------
 void Dot::update(float dt)
 {
+	//åº§æ¨™ã‚’ãšã£ã¨æ›´æ–°ã•ã‚Œã‚‹
 	_pDotSpr->setPosition(_pMeteor->getPosition3D().x, -_pMeteor->getPosition3D().z);
 
 }

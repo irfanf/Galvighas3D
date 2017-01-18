@@ -1,3 +1,14 @@
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/15
+//!	
+//!	GameOverScene.cpp
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//!
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "GameOverScene.h"
 #include "TitleScene.h"
 #include "cocostudio/CocoStudio.h"
@@ -10,7 +21,7 @@ const float BG_SPEED = 10.0f;
 const float TIME_CONVERTER = 60.0f;
 const int MAX_OPACITY = 200;
 //------------------------------------
-//@! ƒNƒ‰ƒXì¬
+//@! ã‚·ãƒ¼ãƒ³ä½œæˆ
 //------------------------------------
 Scene* GameOverScene::createScene(int score,int highScore)
 {
@@ -27,7 +38,7 @@ Scene* GameOverScene::createScene(int score,int highScore)
 	return scene;
 }
 //------------------------------------
-//@! ƒNƒ‰ƒX‚Ì‰Šú‰»
+//@! ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
 //------------------------------------
 bool GameOverScene::init(int score,int highScore)
 {
@@ -36,17 +47,22 @@ bool GameOverScene::init(int score,int highScore)
 		return false;
 	}
 
-	//‰æ–ÊƒTƒCƒY
+	//ç”»é¢ã‚µã‚¤ã‚º
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»
 	Sprite* go = Sprite::create("gameOver.png");
 	go->setPosition(visibleSize.width / 2, visibleSize.height / 2 + 100.f);
 	this->addChild(go);
 
-	//ƒ^ƒbƒ`‚ð—LŒø‚É‚·‚é
+	//ã‚¿ãƒƒãƒã‚’æœ‰åŠ¹ã«ã™ã‚‹
 	this->setTouchEnabled(true);
 	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 
+	//-----------------------------------------------------
+	//ã‚¹ã‚³ã‚¢ã®è¡¨ç¤º
+
+	//ç¾åœ¨ã®ã‚¹ã‚³ã‚¢
 	Label* pScoreLabel = Label::create("Total Score = ", "Jokerman", 50);
 	pScoreLabel->setPosition(visibleSize.width/2,visibleSize.height/2 - 170.f);
 	pScoreLabel->setTextColor(Color4B::YELLOW);
@@ -54,19 +70,22 @@ bool GameOverScene::init(int score,int highScore)
 	String* str = String::createWithFormat("Total Score = %d", score);
 	pScoreLabel->setString(str->getCString());
 
+	//ãƒã‚¤ã‚¹ã‚³ã‚¢
 	Label* pHighScoreLabel = Label::create("High Score = ", "Jokerman", 50);
 	pHighScoreLabel->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 100.f);
 	this->addChild(pHighScoreLabel);
 	String* str2 = String::createWithFormat("High Score = %d", highScore);
 	pHighScoreLabel->setString(str2->getCString());
 
-	
+	//-----------------------------------------------------------------------
 	return true;
 }
-
+//------------------------------------
+//@! ã‚¯ãƒ©ã‚¹ä½œæˆ
+//------------------------------------
 GameOverScene* GameOverScene::create(int score,int highScore)
 {
-	//ƒƒ‚ƒŠ
+	//ãƒ¡ãƒ¢ãƒª
 	auto go = new (std::nothrow) GameOverScene();
 	if (go && go->init(score,highScore))
 	{
@@ -81,13 +100,13 @@ GameOverScene* GameOverScene::create(int score,int highScore)
 }
 
 //------------------------------------
-//@! ŽžŠÔ‚½‚Á‚½‚ç,ƒV[ƒ“ˆÚ“®‚·‚é
-//@! ŽžŠÔ
-//@! –ß‚è’l@bool
+//@! æ™‚é–“ãŸã£ãŸã‚‰,ã‚·ãƒ¼ãƒ³ç§»å‹•ã™ã‚‹
+//@! æ™‚é–“
+//@! æˆ»ã‚Šå€¤ã€€bool
 //------------------------------------
 bool GameOverScene::onTouchBegan(Touch* touch, Event* unused_event)
 {
-	//ˆÚ“®æƒV[ƒ“‚Ìì¬
+	//ç§»å‹•å…ˆã‚·ãƒ¼ãƒ³ã®ä½œæˆ
 	auto scene = TitleScene::createScene();
 	auto transition = TransitionFade::create(1.0f, scene);
 	Director::getInstance()->replaceScene(transition);

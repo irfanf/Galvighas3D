@@ -3,6 +3,7 @@
 #include "ReadySetGo.h"
 #include "Particle3D\PU\CCPUParticleSystem3D.h"
 #include "GameOverScene.h"
+#include "audio\include\AudioEngine.h"
 
 USING_NS_CC;
 
@@ -38,6 +39,10 @@ bool HelloWorld::init()
 	_meteorNum = 0;
 	_time = 0;
 	_scene = CUT_IN;
+
+	experimental::AudioEngine::stopAll();
+	int bgm = experimental::AudioEngine::play2d("sounds/bgm.mp3");
+	experimental::AudioEngine::setLoop(bgm, true);
 
 	_pCrystal = Crystal::create();
 	_pCrystal->setPosition3D(Vec3(0.f,-1.f,0.f));
@@ -120,6 +125,8 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * unused_ev
 			_pMeteors.erase(_pMeteors.begin() + i);       //  3番目の要素（9）を削除
 			//数を減らす
 			_meteorNum--;
+
+			int exp = experimental::AudioEngine::play2d("sounds/explode.mp3");
 			
 			_spawnRate -= 0.075f;
 			_pGameSystem->setBonusTime(1);
@@ -163,7 +170,7 @@ void HelloWorld::update(float dt)
 		onPlay();
 		break;
 	case OVER:
-		gameOver();
+		goToGameOver();
 		break;
 	case CLEAR:
 		break;
@@ -173,19 +180,19 @@ void HelloWorld::update(float dt)
 
 }
 
-void HelloWorld::createAsteroid(Type type)
+void HelloWorld::createMeteor()
 {
 
 	float x = random(-200, 200);
 	float z = random(-200, 200);
 
 	//隕石登録する
-	_pMeteors.push_back(Enemy::create(type));
+	_pMeteors.push_back(Meteor::create());
 
 	//隕石の数を数える
 	_meteorNum++;
 	
-	std::vector<Enemy*>::iterator p = _pMeteors.begin();
+	std::vector<Meteor*>::iterator p = _pMeteors.begin();
 
 	for (int i = 0; i < _meteorNum - 1; i++)
 	{
@@ -213,7 +220,6 @@ void HelloWorld::onCutIn()
 
 void HelloWorld::onPlay()
 {
-	_pSatellite->rotateEnable(true);
 
 	//時間
 	_time++;
@@ -222,7 +228,7 @@ void HelloWorld::onPlay()
 	//隕石を出すタイミング
 	if (_time > 60 * _spawnRate)
 	{
-		createAsteroid(Meteor);
+		createMeteor();
 		_time = 0;
 	}
 
@@ -261,25 +267,8 @@ void HelloWorld::onPlay()
 				_pMeteors.erase(_pMeteors.begin() + i);       //  3番目の要素（9）を削除
 				_meteorNum--;
 				//--------------------------------------------------------------
-				
-				//_pGameSystem->getRadar()->deleteMeteorDot(_pMeteors[i]);
 
-				//std::list<Dot*>::iterator it;
-
-				//for (it = _pGameSystem->getRadar()->getDots().begin(); it != _pGameSystem->getRadar()->getDots().end();)
-				//{
-				//	Dot* dot = *it;
-
-				//	if (!dot->isAlive())
-				//	{
-				//		_pGameSystem->getRadar()->getDots().remove(dot);
-
-				//		dot->removeFromParent();
-				//		dot = nullptr;
-				//	}
-
-				//}
-
+				int exp = experimental::AudioEngine::play2d("sounds/explode.mp3");
 
 				hp -= 10;
 
@@ -309,10 +298,10 @@ void HelloWorld::onPlay()
 	_pCrystal->setHP(hp);
 	_pGameSystem->setHPBarScale(hpScale);
 	_pGameSystem->setCurrentCameraPos(_pSatellite->getPosition3D());
-	_pGameSystem->setCurrentPlayerPos(_pCrystal->getPosition3D());
+	_pGameSystem->setCurrentCrystalPos(_pCrystal->getPosition3D());
 }
 
-void HelloWorld::gameOver()
+void HelloWorld::goToGameOver()
 {
 	auto scene = GameOverScene::createScene(_pGameSystem->getScore(), _pGameSystem->getHighScore());
 	auto transition = TransitionFade::create(1.0f, scene);

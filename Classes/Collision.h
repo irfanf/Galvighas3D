@@ -1,31 +1,48 @@
+﻿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/20
+//!	
+//!	Collision.h
+//!
+//! Copyright ©2016 IrGame All Right Reserved
+//!
+//! 3Dモデルの当たり判定の形やチェックするクラス
+//!
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
 
+//--------------------------
 #include <cocos2d.h>
+//--------------------------
 
 class Sphere
 {
 public:
-	cocos2d::Vec3 center;
-	float radius;
+	cocos2d::Vec3 center;		//中心
+	float radius;				//半径
 	Sphere()
 	{
-		radius = 1.0f;
+		radius = 1.0f;			//コンストラクタで初期化
 	}
 };
 
 class Segment
 {
 public:
-	cocos2d::Vec3 start;
-	cocos2d::Vec3 end;
+	//Segmentの長さ
+	cocos2d::Vec3 start;		//スタート点		
+	cocos2d::Vec3 end;			//終わり点
 };
 
 class Capsule
 {
 public:
-	Segment segment;
-	float radius;
+	Segment segment;			//Segmentの形
+	float radius;				//半径
 
+	//初期化
 	Capsule()
 	{
 		segment.start = cocos2d::Vec3(0.f, 0.f, 0.f);

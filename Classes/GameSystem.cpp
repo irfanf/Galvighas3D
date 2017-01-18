@@ -134,7 +134,7 @@ void GameSystem::update(float dt)
 		_pUserDefault->setIntegerForKey("highScore", _highScore);
 	}
 
-	_pRadar->setRadarRot(_playerPos, _cameraPos);
+	_pRadar->setRadarRot(_crystalPos, _cameraPos);
 }
 
 

@@ -1,14 +1,20 @@
-// ƒtƒ@ƒCƒ‹–¼: CollisionNode.cpp
-// ì¬ŽÒ:
-// ì¬“ú:
-// à–¾: Õ“Ë”»’è—pƒm[ƒh
-//--------------------------------------------------------------------------------------
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/12/20
+//!	
+//!	CollisionNode.cpp
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//!
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "CollisionNode.h"
 
 
 USING_NS_CC;
 
-// ƒfƒoƒbƒO•\Ž¦‚ÌON/OFFƒtƒ‰ƒO‚ÌŽÀ‘Ì
+// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºã®ON/OFFãƒ•ãƒ©ã‚°ã®å®Ÿä½“
 bool CollisionNode::s_DebugVisible = false;
 
 
@@ -16,15 +22,15 @@ bool CollisionNode::s_DebugVisible = false;
 //--------------------------------------------------------------
 bool SphereNode::init()
 {
-	// Šî’êƒNƒ‰ƒX‰Šú‰»
-	// ƒfƒoƒbƒO•\Ž¦—pƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	// ƒ‚ƒfƒ‹‚Í”¼Œa1m‚Ìƒ[ƒ|ƒŠ‚È‹…‚ðì¬‚·‚é‚±‚ÆB
+	// åŸºåº•ã‚¯ãƒ©ã‚¹åˆæœŸåŒ–
+	// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºç”¨ãƒ¢ãƒ‡ãƒ«ã®èª­ã¿è¾¼ã¿
+	// ãƒ¢ãƒ‡ãƒ«ã¯åŠå¾„1mã®ãƒ­ãƒ¼ãƒãƒªãªçƒã‚’ä½œæˆã™ã‚‹ã“ã¨ã€‚
 	if (!Obj3D::initWithFile("collision/ball.c3b"))
 	{
 		return false;
 	}
 
-	// update‚ð—LŒø‰»
+	// updateã‚’æœ‰åŠ¹åŒ–
 	this->scheduleUpdate();
 
 	return true;
@@ -32,40 +38,40 @@ bool SphereNode::init()
 
 void SphereNode::update(float delta)
 {
-	// ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì“–‚½‚è”»’è‹…‚ðŒvŽZ
+	// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®å½“ãŸã‚Šåˆ¤å®šçƒã‚’è¨ˆç®—
 	{
-		// ŒvŽZÏ‚Ýƒ[ƒ‹ƒhs—ñ‚ðŽæ“¾
+		// è¨ˆç®—æ¸ˆã¿ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚’å–å¾—
 		Mat4 worldm = this->getNodeToWorldTransform();
-		// ƒ‚ƒfƒ‹À•WŒn‚Å‚Ì’†S
+		// ãƒ¢ãƒ‡ãƒ«åº§æ¨™ç³»ã§ã®ä¸­å¿ƒ
 		Vec3 center(0, 0, 0);
-		// ƒ‚ƒfƒ‹À•WŒn‚Å‚Ì‰E’[
+		// ãƒ¢ãƒ‡ãƒ«åº§æ¨™ç³»ã§ã®å³ç«¯
 		Vec3 right(1, 0, 0);
 
-		// ƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·
+		// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã«å¤‰æ›
 		worldm.transformPoint(&center);
 		worldm.transformPoint(&right);
 
-		// ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì’†SÀ•W‚ðÝ’è
+		// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®ä¸­å¿ƒåº§æ¨™ã‚’è¨­å®š
 		Sphere::center = center;
-		// ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì”¼Œa‚ðŒvŽZ
+		// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®åŠå¾„ã‚’è¨ˆç®—
 		Sphere::radius = center.distance(right);
 	}
 }
 
 void SphereNode::visit(Renderer *renderer, const Mat4 &parentTransform, uint32_t parentFlags)
 {
-	// ƒfƒoƒbƒO•\Ž¦‚ªON‚È‚ç
+	// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºãŒONãªã‚‰
 	if (CollisionNode::GetDebugVisible())
 	{
-		// ƒ‚ƒfƒ‹‚ð•`‰æ
+		// ãƒ¢ãƒ‡ãƒ«ã‚’æç”»
 		Obj3D::visit(renderer, parentTransform, parentFlags);
 	}
 }
 
 void SphereNode::SetRadius(float radius)
 {
-	// ƒ‚ƒfƒ‹‚Í”¼Œa1m‚Åì‚Á‚Ä‚ ‚é‚Ì‚ÅA
-	// ”¼Œanƒ[ƒgƒ‹‚È‚çƒXƒP[ƒŠƒ“ƒOn”{‚É‚È‚éB
+	// ãƒ¢ãƒ‡ãƒ«ã¯åŠå¾„1mã§ä½œã£ã¦ã‚ã‚‹ã®ã§ã€
+	// åŠå¾„nãƒ¡ãƒ¼ãƒˆãƒ«ãªã‚‰ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°nå€ã«ãªã‚‹ã€‚
 	this->setScaleX(radius);
 	this->setScaleY(radius);
 	this->setScaleZ(radius);
@@ -74,15 +80,15 @@ void SphereNode::SetRadius(float radius)
 //--------------------------------------------------------------
 bool CapsuleNode::init()
 {
-	// Šî’êƒNƒ‰ƒX‰Šú‰»
-	// ƒfƒoƒbƒO•\Ž¦—pƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	// ƒ‚ƒfƒ‹‚Í”¼Œa1m‚Ìƒ[ƒ|ƒŠ‚È‹…‚ðì¬‚·‚é‚±‚ÆB
+	// åŸºåº•ã‚¯ãƒ©ã‚¹åˆæœŸåŒ–
+	// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºç”¨ãƒ¢ãƒ‡ãƒ«ã®èª­ã¿è¾¼ã¿
+	// ãƒ¢ãƒ‡ãƒ«ã¯åŠå¾„1mã®ãƒ­ãƒ¼ãƒãƒªãªçƒã‚’ä½œæˆã™ã‚‹ã“ã¨ã€‚
 	if (!Obj3D::initWithFile("collision/stickCol.c3b"))
 	{
 		return false;	
 	}
 
-	// update‚ð—LŒø‰»
+	// updateã‚’æœ‰åŠ¹åŒ–
 	this->scheduleUpdate();
 
 	return true;
@@ -91,36 +97,36 @@ bool CapsuleNode::init()
 
 void CapsuleNode::update(float delta)
 {
-	// ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì“–‚½‚è”»’èƒJƒvƒZƒ‹‚ðŒvŽZ
+	// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®å½“ãŸã‚Šåˆ¤å®šã‚«ãƒ—ã‚»ãƒ«ã‚’è¨ˆç®—
 	{
-		// ŒvŽZÏ‚Ýƒ[ƒ‹ƒhs—ñ‚ðŽæ“¾
+		// è¨ˆç®—æ¸ˆã¿ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚’å–å¾—
 		Mat4 worldm = this->getNodeToWorldTransform();
-		// ƒ‚ƒfƒ‹À•WŒn‚Å‚Ì’†S
+		// ãƒ¢ãƒ‡ãƒ«åº§æ¨™ç³»ã§ã®ä¸­å¿ƒ
 		Vec3 center(0, 0, 0);
-		// ƒ‚ƒfƒ‹À•WŒn‚Å‚Ìã’[
+		// ãƒ¢ãƒ‡ãƒ«åº§æ¨™ç³»ã§ã®ä¸Šç«¯
 		Vec3 up(0, 1, 0);
-		// ƒ‚ƒfƒ‹À•WŒn‚Å‚Ì‰E’[
+		// ãƒ¢ãƒ‡ãƒ«åº§æ¨™ç³»ã§ã®å³ç«¯
 		Vec3 right(1, 0, 0);
 
-		// ƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·
+		// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã«å¤‰æ›
 		worldm.transformPoint(&center);
 		worldm.transformPoint(&up);
 		worldm.transformPoint(&right);
 
-		// ƒ[ƒ‹ƒhÀ•WŒn‚Å‚ÌŽ²üÀ•W‚ðÝ’è
+		// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®è»¸ç·šåº§æ¨™ã‚’è¨­å®š
 		Capsule::segment.start = center;
 		Capsule::segment.end = up;
-		// ƒ[ƒ‹ƒhÀ•WŒn‚Å‚Ì”¼Œa‚ðŒvŽZ
+		// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ã®åŠå¾„ã‚’è¨ˆç®—
 		Capsule::radius = center.distance(right);
 	}
 }
 
 void CapsuleNode::visit(Renderer *renderer, const Mat4 &parentTransform, uint32_t parentFlags)
 {
-	// ƒfƒoƒbƒO•\Ž¦‚ªON‚È‚ç
+	// ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºãŒONãªã‚‰
 	if (CollisionNode::GetDebugVisible())
 	{
-		// ƒ‚ƒfƒ‹‚ð•`‰æ
+		// ãƒ¢ãƒ‡ãƒ«ã‚’æç”»
 		Obj3D::visit(renderer, parentTransform, parentFlags);
 	}
 }
@@ -128,15 +134,15 @@ void CapsuleNode::visit(Renderer *renderer, const Mat4 &parentTransform, uint32_
 
 void CapsuleNode::SetRadius(float radius)
 {
-	// ƒ‚ƒfƒ‹‚Í”¼Œa1m‚Åì‚Á‚Ä‚ ‚é‚Ì‚ÅA
-	// ”¼Œanƒ[ƒgƒ‹‚È‚çƒXƒP[ƒŠƒ“ƒOn”{‚É‚È‚éB
+	// ãƒ¢ãƒ‡ãƒ«ã¯åŠå¾„1mã§ä½œã£ã¦ã‚ã‚‹ã®ã§ã€
+	// åŠå¾„nãƒ¡ãƒ¼ãƒˆãƒ«ãªã‚‰ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°nå€ã«ãªã‚‹ã€‚
 	this->setScaleX(radius);
 	this->setScaleZ(radius);
 }
 
 void CapsuleNode::SetLength(float length)
 {
-	// ƒ‚ƒfƒ‹‚ÍŽ²ü‚Ì’·‚³1m‚Åì‚Á‚Ä‚ ‚é‚Ì‚ÅA
-	// ’·‚³nƒ[ƒgƒ‹‚È‚çƒXƒP[ƒŠƒ“ƒOn”{‚É‚È‚éB
+	// ãƒ¢ãƒ‡ãƒ«ã¯è»¸ç·šã®é•·ã•1mã§ä½œã£ã¦ã‚ã‚‹ã®ã§ã€
+	// é•·ã•nãƒ¡ãƒ¼ãƒˆãƒ«ãªã‚‰ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°nå€ã«ãªã‚‹ã€‚
 	this->setScaleY(length);
 }

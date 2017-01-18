@@ -15,10 +15,10 @@ USING_NS_CC;
 //------------------------------------
 //@! クラス作成
 //------------------------------------
-Enemy * Enemy::create(Type type)
+Meteor * Meteor::create()
 {
-	auto obj3d = new (std::nothrow) Enemy();
-	if (obj3d && obj3d->init(type))
+	auto obj3d = new (std::nothrow) Meteor();
+	if (obj3d && obj3d->init())
 	{
 		obj3d->_contentSize = obj3d->getBoundingBox().size;
 
@@ -32,7 +32,7 @@ Enemy * Enemy::create(Type type)
 //------------------------------------
 //@! クラスの初期化
 //------------------------------------
-bool Enemy::init(Type type)
+bool Meteor::init()
 {
 	if (!Obj3D::init())
 	{
@@ -42,22 +42,9 @@ bool Enemy::init(Type type)
 	//敵のスピードを設定する
 	float speed = (rand() % 10) + 5;
 
-
-	switch (type)
-	{
-	case Meteor:
-		//敵のオブジェクトの作成
-		_pEnemyObj = Obj3D::create("enemy/meteor.c3b");
-		this->addChild(_pEnemyObj);
-		break;
-	case Star:
-		//敵のオブジェクトの作成
-		_pEnemyObj = Obj3D::create("enemy/star.c3b");
-		this->addChild(_pEnemyObj);
-		break;
-
-	}
-
+	//敵のオブジェクトの作成
+	_pEnemyObj = Obj3D::create("enemy/meteor.c3b");
+	this->addChild(_pEnemyObj);
 
 	//敵の当たり判定をつける
 	_pCollisionNodeEnemy = SphereNode::create();
@@ -75,7 +62,7 @@ bool Enemy::init(Type type)
 //------------------------------------
 //@! 更新を呼び出す
 //------------------------------------
-void Enemy::callEnemyUpdate()
+void Meteor::callEnemyUpdate()
 {
 	_pCollisionNodeEnemy->update(0.0f);
 }
@@ -83,7 +70,7 @@ void Enemy::callEnemyUpdate()
 //@! 更新
 //@! 時間
 //------------------------------------
-void Enemy::update(float dt)
+void Meteor::update(float dt)
 {
 	
 	//スピード
