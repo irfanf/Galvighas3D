@@ -13,12 +13,12 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 //----------------------------------
-#include "cocos2d.h"
-#include "Player.h"
-#include "Enemy.h"
 #include <iostream>
-#include "GameSystem.h"
-#include "Satellite.h"
+#include "cocos2d.h"
+#include "../Objects/Player.h"
+#include "../Objects/Enemy.h"
+#include "../Systems/GameSystem.h"
+#include "../Camera/Satellite.h"
 //----------------------------------
 
 class Obj3D;

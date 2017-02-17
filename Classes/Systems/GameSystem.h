@@ -12,7 +12,7 @@
 #pragma once
 //----------------------------------
 #include "cocos2d.h"
-#include "Radar.h"
+#include "../Objects/Radar.h"
 //----------------------------------
 class GameSystem : public cocos2d::Node
 {

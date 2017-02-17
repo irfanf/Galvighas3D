@@ -12,20 +12,20 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp \
-                   ../../Classes/Collision.cpp \
-                   ../../Classes/CollisionNode.cpp \
-                   ../../Classes/GameOverScene.cpp \
-                   ../../Classes/GameSystem.cpp \
-                   ../../Classes/Obj3d.cpp \
-                   ../../Classes/Player.cpp \
-                   ../../Classes/Enemy.cpp \
-                   ../../Classes/Satellite.cpp \
-                   ../../Classes/ReadySetGo.cpp \
-                   ../../Classes/TitleScene.cpp \
-                   ../../Classes/LogoScene.cpp \
-                   ../../Classes/Radar.cpp \
-                   ../../Classes/Dot.cpp
+                   ../../Classes/Scenes/HelloWorldScene.cpp \
+                   ../../Classes/Systems/Collision.cpp \
+                   ../../Classes/Systems/CollisionNode.cpp \
+                   ../../Classes/Scenes/GameOverScene.cpp \
+                   ../../Classes/Systems/GameSystem.cpp \
+                   ../../Classes/Objects/Obj3d.cpp \
+                   ../../Classes/Objects/Player.cpp \
+                   ../../Classes/Objects/Enemy.cpp \
+                   ../../Classes/Camera/Satellite.cpp \
+                   ../../Classes/Systems/ReadySetGo.cpp \
+                   ../../Classes/Scenes/TitleScene.cpp \
+                   ../../Classes/Scenes/LogoScene.cpp \
+                   ../../Classes/Objects/Radar.cpp \
+                   ../../Classes/Objects/Dot.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

@@ -11,7 +11,7 @@
 #pragma once
 //------------------------------
 #include "cocos2d.h"
-#include "Player.h"
+#include "../Objects/Player.h"
 //-------------------------------------------------
 class Satellite : public cocos2d::Camera
 {

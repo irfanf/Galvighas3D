@@ -1,4 +1,4 @@
-//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 //!
 //!	IRFAN FAHMI RAMADHAN
 //!
@@ -6,6 +6,7 @@
 //!	
 //!	Player.cpp
 //!
+//! Copyright Â©2016 IrGame All Right Reserved
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "Player.h"
 
@@ -16,7 +17,7 @@ USING_NS_CC;
 
 Crystal * Crystal::create()
 {
-	//ƒƒ‚ƒŠ
+	//ãƒ¡ãƒ¢ãƒª
 	auto player = new (std::nothrow) Crystal();
 	if (player && player->init())
 	{
@@ -37,7 +38,7 @@ bool Crystal::init()
 		return false;
 	}
 
-	//HP‚Ì‰Šú‰»
+	//HPã®åˆæœŸåŒ–
 	_hp = MAX_HP;
 
 	_pCrystal = Obj3D::create("crystal/crystal.c3b");
@@ -53,7 +54,7 @@ bool Crystal::init()
 	}
 
 
-	//s—ñ----------------------------
+	//è¡Œåˆ—----------------------------
 	Mat4 transm;
 	Mat4::createTranslation(_position.x, _position.y, _positionZ, &transm);
 	_transform = Mat4::IDENTITY;

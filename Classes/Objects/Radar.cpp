@@ -63,6 +63,9 @@ void Radar::createMeteorDot(Meteor* enemy)
 	_pEmptyNode->addChild(dot);
 	
 }
+//------------------------------------
+//@! 隕石のドットスプライトを削除
+//------------------------------------
 void Radar::deleteMeteorDot(Meteor * enemy)
 {
 	std::list<Dot*>::iterator it;

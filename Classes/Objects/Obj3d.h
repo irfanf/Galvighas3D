@@ -1,7 +1,17 @@
+﻿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/11/24
+//!	
+//!	Obj3d.h
+//!
+//! Copyright ©2016 IrGame All Right Reserved
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
 
 #include"cocos2d.h"
-//#include"HelloWorldScene.h"
+
 class Obj3D : public cocos2d::Sprite3D
 {
 public:

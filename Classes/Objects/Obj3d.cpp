@@ -1,14 +1,24 @@
+ï»¿//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+//!
+//!	IRFAN FAHMI RAMADHAN
+//!
+//!	2016/11/24
+//!	
+//!	Obj3d.cpp
+//!
+//! Copyright Â©2016 IrGame All Right Reserved
+//_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #include "Obj3d.h"
 
 
 USING_NS_CC;
 
-//ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 Obj3D * Obj3D::create(const std::string & modelPath)
 {
 	CCASSERT(modelPath.length() >= 4, "invalid filename for Sprite3D");
 
-	//ƒƒ‚ƒŠ
+	//ãƒ¡ãƒ¢ãƒª
 	auto obj3d = new (std::nothrow) Obj3D();
 	if (obj3d && obj3d->initWithFile(modelPath))
 	{
@@ -32,7 +42,7 @@ bool Obj3D::initWithFile(const std::string & path)
 	m_spr3D = Sprite3D::create(path);
 	this->addChild(m_spr3D);
 	m_spr3D->setCameraMask((unsigned short)CameraFlag::USER1);
-	//ƒ‰ƒCƒg‚O”Ô‚ðŽw’è
+	//ãƒ©ã‚¤ãƒˆï¼ç•ªã‚’æŒ‡å®š
 	m_spr3D->setLightMask((unsigned int)LightFlag::LIGHT0);
 
 
@@ -91,11 +101,11 @@ const cocos2d::Mat4 & Obj3D::getNodeToParentTransform() const
 	_transform *= scalem;
 
 	return _transform;
-	// TODO: return ƒXƒe[ƒgƒƒ“ƒg‚ð‚±‚±‚É‘}“ü‚µ‚Ü‚·
+	// TODO: return ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆã‚’ã“ã“ã«æŒ¿å…¥ã—ã¾ã™
 }
 void Obj3D::setLightMask(unsigned int mask)
 {
-	//sprite3D‚Ìƒ‰ƒCƒg”Ô†‚ðƒZƒbƒg
+	//sprite3Dã®ãƒ©ã‚¤ãƒˆç•ªå·ã‚’ã‚»ãƒƒãƒˆ
 	m_spr3D->setLightMask(mask);
 
 }

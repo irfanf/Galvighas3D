@@ -13,7 +13,7 @@
 #include "GameSystem.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
-#include "GameOverScene.h"
+#include "../Scenes/GameOverScene.h"
 #include "ReadySetGo.h"
 //-------------------------------
 

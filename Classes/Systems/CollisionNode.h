@@ -11,7 +11,7 @@
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 #pragma once
 
-#include "Obj3D.h"
+#include "../Objects/Obj3d.h"
 #include "Collision.h"
 
 

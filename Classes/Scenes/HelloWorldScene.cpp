@@ -1,6 +1,6 @@
 #include "HelloWorldScene.h"
-#include "Obj3d.h"
-#include "ReadySetGo.h"
+#include "../Objects/Obj3d.h"
+#include "../Systems/ReadySetGo.h"
 #include "Particle3D\PU\CCPUParticleSystem3D.h"
 #include "GameOverScene.h"
 #include "audio\include\AudioEngine.h"
